@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@fontsource/fira-mono': ^4.5.0
   '@lukeed/uuid': ^2.0.0
+  '@sveltejs/adapter-netlify': ^1.0.0-next.35
   '@sveltejs/kit': next
   '@types/cookie': ^0.4.1
   '@typescript-eslint/eslint-plugin': ^4.31.1
@@ -25,6 +26,7 @@ dependencies:
   cookie: 0.4.1
 
 devDependencies:
+  '@sveltejs/adapter-netlify': 1.0.0-next.35
   '@sveltejs/kit': 1.0.0-next.195_svelte@3.44.1
   '@types/cookie': 0.4.1
   '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
@@ -98,6 +100,10 @@ packages:
     resolution: { integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA== }
     dev: true
 
+  /@iarna/toml/2.2.5:
+    resolution: { integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg== }
+    dev: true
+
   /@lukeed/csprng/1.0.0:
     resolution: { integrity: sha512-ruuGHsnabmObBdeMg3vKdGRmh06Oog3eFpf/Tk6X0kDSJDpJTDCj2dqdp1+0VjzIUgHlFF9GBm7uFqfYhhdX9g== }
     engines: { node: '>=8' }
@@ -137,6 +143,13 @@ packages:
     dependencies:
       estree-walker: 2.0.2
       picomatch: 2.3.0
+    dev: true
+
+  /@sveltejs/adapter-netlify/1.0.0-next.35:
+    resolution: { integrity: sha512-3PC1RaRReu652ot+LC9EOjkebnZehdwvUm0zhPC8OFPJJccQwq6Y1kbHDeACIIFRTaKLIRBpuYh3idP6ffUGdw== }
+    dependencies:
+      '@iarna/toml': 2.2.5
+      esbuild: 0.13.12
     dev: true
 
   /@sveltejs/kit/1.0.0-next.195_svelte@3.44.1:
