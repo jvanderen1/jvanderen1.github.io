@@ -14,9 +14,10 @@
     "font-family-no-missing-generic-family-keyword": null
   },
   "ignoreFiles": [
-    "node_modules/*",
+    "node_modules/**",
     "src/assets/**",
     "build/**"
   ],
+  "codeFilename": "src/**",
   "defaultSeverity": "error"
 }
