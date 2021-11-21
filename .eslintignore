@@ -2,4 +2,5 @@
 .gitignore
 .netlify
 .svelte-kit
+.idea
 build
