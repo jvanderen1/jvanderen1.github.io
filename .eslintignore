@@ -1,0 +1,5 @@
+*.cjs
+.gitignore
+.netlify
+.svelte-kit
+build
