@@ -1,24 +1,24 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __markAsModule = (target) => __defProp(target, '__esModule', { value: true });
+var __create = Object.create
+var __defProp = Object.defineProperty
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor
+var __getOwnPropNames = Object.getOwnPropertyNames
+var __getProtoOf = Object.getPrototypeOf
+var __hasOwnProp = Object.prototype.hasOwnProperty
+var __markAsModule = (target) => __defProp(target, '__esModule', { value: true })
 var __esm = (fn, res) =>
 	function __init() {
-		return fn && (res = (0, fn[Object.keys(fn)[0]])((fn = 0))), res;
-	};
+		return fn && (res = (0, fn[Object.keys(fn)[0]])((fn = 0))), res
+	}
 var __commonJS = (cb, mod) =>
 	function __require() {
-		return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-	};
-var __export = (target, all) => {
-	__markAsModule(target);
-	for (var name in all) {
-		__defProp(target, name, { get: all[name], enumerable: true });
+		return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports
 	}
-};
+var __export = (target, all) => {
+	__markAsModule(target)
+	for (var name in all) {
+		__defProp(target, name, { get: all[name], enumerable: true })
+	}
+}
 var __reExport = (target, module2, desc) => {
 	if ((module2 && typeof module2 === 'object') || typeof module2 === 'function') {
 		for (let key of __getOwnPropNames(module2)) {
@@ -26,12 +26,12 @@ var __reExport = (target, module2, desc) => {
 				__defProp(target, key, {
 					get: () => module2[key],
 					enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable
-				});
+				})
 			}
 		}
 	}
-	return target;
-};
+	return target
+}
 var __toModule = (module2) => {
 	return __reExport(
 		__markAsModule(
@@ -40,58 +40,58 @@ var __toModule = (module2) => {
 				'default',
 				module2 && module2.__esModule && 'default' in module2
 					? {
-							get: () => module2.default,
-							enumerable: true
-					  }
+						get: () => module2.default,
+						enumerable: true
+					}
 					: { value: module2, enumerable: true }
 			)
 		),
 		module2
-	);
-};
+	)
+}
 
 // node_modules/.pnpm/@sveltejs+kit@1.0.0-next.195_svelte@3.44.1/node_modules/@sveltejs/kit/dist/install-fetch.js
 function dataUriToBuffer(uri) {
 	if (!/^data:/i.test(uri)) {
-		throw new TypeError('`uri` does not appear to be a Data URI (must begin with "data:")');
+		throw new TypeError('`uri` does not appear to be a Data URI (must begin with "data:")')
 	}
-	uri = uri.replace(/\r?\n/g, '');
-	const firstComma = uri.indexOf(',');
+	uri = uri.replace(/\r?\n/g, '')
+	const firstComma = uri.indexOf(',')
 	if (firstComma === -1 || firstComma <= 4) {
-		throw new TypeError('malformed data: URI');
+		throw new TypeError('malformed data: URI')
 	}
-	const meta = uri.substring(5, firstComma).split(';');
-	let charset = '';
-	let base64 = false;
-	const type = meta[0] || 'text/plain';
-	let typeFull = type;
+	const meta = uri.substring(5, firstComma).split(';')
+	let charset = ''
+	let base64 = false
+	const type = meta[0] || 'text/plain'
+	let typeFull = type
 	for (let i = 1; i < meta.length; i++) {
 		if (meta[i] === 'base64') {
-			base64 = true;
+			base64 = true
 		} else {
-			typeFull += `;${meta[i]}`;
+			typeFull += `;${meta[i]}`
 			if (meta[i].indexOf('charset=') === 0) {
-				charset = meta[i].substring(8);
+				charset = meta[i].substring(8)
 			}
 		}
 	}
 	if (!meta[0] && !charset.length) {
-		typeFull += ';charset=US-ASCII';
-		charset = 'US-ASCII';
+		typeFull += ';charset=US-ASCII'
+		charset = 'US-ASCII'
 	}
-	const encoding = base64 ? 'base64' : 'ascii';
-	const data = unescape(uri.substring(firstComma + 1));
-	const buffer = Buffer.from(data, encoding);
-	buffer.type = type;
-	buffer.typeFull = typeFull;
-	buffer.charset = charset;
-	return buffer;
+	const encoding = base64 ? 'base64' : 'ascii'
+	const data = unescape(uri.substring(firstComma + 1))
+	const buffer = Buffer.from(data, encoding)
+	buffer.type = type
+	buffer.typeFull = typeFull
+	buffer.charset = charset
+	return buffer
 }
 
 async function* toIterator(parts, clone2 = true) {
 	for (const part of parts) {
 		if ('stream' in part) {
-			yield* part.stream();
+			yield* part.stream()
 		} else if (ArrayBuffer.isView(part)) {
 			if (clone2) {
 				let position = part.byteOffset;
@@ -106,7 +106,7 @@ async function* toIterator(parts, clone2 = true) {
 				yield part;
 			}
 		} else {
-			let position = 0;
+			let position = 0
 			while (position !== part.size) {
 				const chunk = part.slice(position, Math.min(part.size, position + POOL_SIZE));
 				const buffer = await chunk.arrayBuffer();
@@ -130,25 +130,25 @@ function isFormData(object) {
 		typeof object.entries === 'function' &&
 		typeof object.constructor === 'function' &&
 		object[NAME] === 'FormData'
-	);
+	)
 }
 
 function getHeader(boundary, name, field) {
-	let header = '';
-	header += `${dashes}${boundary}${carriage}`;
-	header += `Content-Disposition: form-data; name="${name}"`;
+	let header = ''
+	header += `${dashes}${boundary}${carriage}`
+	header += `Content-Disposition: form-data; name="${name}"`
 	if (isBlob(field)) {
-		header += `; filename="${field.name}"${carriage}`;
-		header += `Content-Type: ${field.type || 'application/octet-stream'}`;
+		header += `; filename="${field.name}"${carriage}`
+		header += `Content-Type: ${field.type || 'application/octet-stream'}`
 	}
-	return `${header}${carriage.repeat(2)}`;
+	return `${header}${carriage.repeat(2)}`
 }
 
 async function* formDataIterator(form, boundary) {
 	for (const [name, value] of form) {
-		yield getHeader(boundary, name, value);
+		yield getHeader(boundary, name, value)
 		if (isBlob(value)) {
-			yield* value.stream();
+			yield * value.stream()
 		} else {
 			yield value;
 		}
@@ -158,51 +158,51 @@ async function* formDataIterator(form, boundary) {
 }
 
 function getFormDataLength(form, boundary) {
-	let length = 0;
+	let length = 0
 	for (const [name, value] of form) {
-		length += Buffer.byteLength(getHeader(boundary, name, value));
-		length += isBlob(value) ? value.size : Buffer.byteLength(String(value));
-		length += carriageLength;
+		length += Buffer.byteLength(getHeader(boundary, name, value))
+		length += isBlob(value) ? value.size : Buffer.byteLength(String(value))
+		length += carriageLength
 	}
-	length += Buffer.byteLength(getFooter(boundary));
-	return length;
+	length += Buffer.byteLength(getFooter(boundary))
+	return length
 }
 
 async function consumeBody(data) {
 	if (data[INTERNALS$2].disturbed) {
-		throw new TypeError(`body used already for: ${data.url}`);
+		throw new TypeError(`body used already for: ${data.url}`)
 	}
-	data[INTERNALS$2].disturbed = true;
+	data[INTERNALS$2].disturbed = true
 	if (data[INTERNALS$2].error) {
-		throw data[INTERNALS$2].error;
+		throw data[INTERNALS$2].error
 	}
-	let { body } = data;
+	let { body } = data
 	if (body === null) {
-		return Buffer.alloc(0);
+		return Buffer.alloc(0)
 	}
 	if (isBlob(body)) {
-		body = import_stream.default.Readable.from(body.stream());
+		body = import_stream.default.Readable.from(body.stream())
 	}
 	if (Buffer.isBuffer(body)) {
-		return body;
+		return body
 	}
 	if (!(body instanceof import_stream.default)) {
-		return Buffer.alloc(0);
+		return Buffer.alloc(0)
 	}
-	const accum = [];
-	let accumBytes = 0;
+	const accum = []
+	let accumBytes = 0
 	try {
 		for await (const chunk of body) {
 			if (data.size > 0 && accumBytes + chunk.length > data.size) {
 				const error2 = new FetchError(
 					`content size at ${data.url} over limit: ${data.size}`,
 					'max-size'
-				);
-				body.destroy(error2);
-				throw error2;
+				)
+				body.destroy(error2)
+				throw error2
 			}
-			accumBytes += chunk.length;
-			accum.push(chunk);
+			accumBytes += chunk.length
+			accum.push(chunk)
 		}
 	} catch (error2) {
 		const error_ =
@@ -212,35 +212,35 @@ async function consumeBody(data) {
 						`Invalid response body while trying to fetch ${data.url}: ${error2.message}`,
 						'system',
 						error2
-				  );
-		throw error_;
+				  )
+		throw error_
 	}
 	if (body.readableEnded === true || body._readableState.ended === true) {
 		try {
 			if (accum.every((c) => typeof c === 'string')) {
-				return Buffer.from(accum.join(''));
+				return Buffer.from(accum.join(''))
 			}
-			return Buffer.concat(accum, accumBytes);
+			return Buffer.concat(accum, accumBytes)
 		} catch (error2) {
 			throw new FetchError(
 				`Could not create Buffer from response body for ${data.url}: ${error2.message}`,
 				'system',
 				error2
-			);
+			)
 		}
 	} else {
-		throw new FetchError(`Premature close of server response while trying to fetch ${data.url}`);
+		throw new FetchError(`Premature close of server response while trying to fetch ${data.url}`)
 	}
 }
 
 function fromRawHeaders(headers = []) {
 	return new Headers(
 		headers
-			.reduce((result, value, index, array) => {
+			.reduce(;(result, value, index, array) => {
 				if (index % 2 === 0) {
-					result.push(array.slice(index, index + 2));
+					result.push(array.slice(index, index + 2))
 				}
-				return result;
+				return result
 			}, [])
 			.filter(([name, value]) => {
 				try {
@@ -251,7 +251,7 @@ function fromRawHeaders(headers = []) {
 					return false;
 				}
 			})
-	);
+	)
 }
 
 async function fetch(url, options_) {
@@ -260,10 +260,10 @@ async function fetch(url, options_) {
 		const options2 = getNodeRequestOptions(request);
 		if (!supportedSchemas.has(options2.protocol)) {
 			throw new TypeError(
-				`node-fetch cannot load ${url}. URL scheme "${options2.protocol.replace(
+				`node-fetch cannot load ${ url }. URL scheme "${ options2.protocol.replace(
 					/:$/,
 					''
-				)}" is not supported.`
+				) }" is not supported.`
 			);
 		}
 		if (options2.protocol === 'data:') {
@@ -308,7 +308,7 @@ async function fetch(url, options_) {
 		request_.on('error', (error2) => {
 			reject(
 				new FetchError(
-					`request to ${request.url} failed, reason: ${error2.message}`,
+					`request to ${ request.url } failed, reason: ${ error2.message }`,
 					'system',
 					error2
 				)
@@ -317,7 +317,7 @@ async function fetch(url, options_) {
 		});
 		fixResponseChunkedTransferBadEnding(request_, (error2) => {
 			response.body.destroy(error2);
-		});
+		})
 		if (process.version < 'v14') {
 			request_.on('socket', (s2) => {
 				let endedWithEventsCount;
@@ -331,7 +331,7 @@ async function fetch(url, options_) {
 						response.body.emit('error', error2);
 					}
 				});
-			});
+			})
 		}
 		request_.on('response', (response_) => {
 			request_.setTimeout(0);
@@ -343,7 +343,7 @@ async function fetch(url, options_) {
 					case 'error':
 						reject(
 							new FetchError(
-								`uri requested responds with a redirect, redirect mode is set to error: ${request.url}`,
+								`uri requested responds with a redirect, redirect mode is set to error: ${ request.url }`,
 								'no-redirect'
 							)
 						);
@@ -359,7 +359,7 @@ async function fetch(url, options_) {
 							break;
 						}
 						if (request.counter >= request.follow) {
-							reject(new FetchError(`maximum redirect reached at: ${request.url}`, 'max-redirect'));
+							reject(new FetchError(`maximum redirect reached at: ${ request.url }`, 'max-redirect'));
 							finalize();
 							return;
 						}
@@ -373,7 +373,7 @@ async function fetch(url, options_) {
 							body: request.body,
 							signal: request.signal,
 							size: request.size
-						};
+						}
 						if (
 							response_.statusCode !== 303 &&
 							request.body &&
@@ -406,13 +406,13 @@ async function fetch(url, options_) {
 							new TypeError(
 								`Redirect option '${request.redirect}' is not a valid value of RequestRedirect`
 							)
-						);
+						)
 				}
 			}
 			if (signal) {
 				response_.once('end', () => {
 					signal.removeEventListener('abort', abortAndFinalize);
-				});
+				})
 			}
 			let body = (0, import_stream.pipeline)(response_, new import_stream.PassThrough(), reject);
 			if (process.version < 'v12.10') {
@@ -442,7 +442,7 @@ async function fetch(url, options_) {
 			const zlibOptions = {
 				flush: import_zlib.default.Z_SYNC_FLUSH,
 				finishFlush: import_zlib.default.Z_SYNC_FLUSH
-			};
+			}
 			if (codings === 'gzip' || codings === 'x-gzip') {
 				body = (0, import_stream.pipeline)(
 					body,
@@ -477,9 +477,9 @@ async function fetch(url, options_) {
 			}
 			response = new Response(body, responseOptions);
 			resolve2(response);
-		});
+		})
 		writeToStream(request_, request);
-	});
+	})
 }
 
 function fixResponseChunkedTransferBadEnding(request, errorCallback) {
@@ -561,7 +561,7 @@ var import_http,
 	Request,
 	getNodeRequestOptions,
 	AbortError,
-	supportedSchemas;
+	supportedSchemas
 var init_install_fetch = __esm({
 	'node_modules/.pnpm/@sveltejs+kit@1.0.0-next.195_svelte@3.44.1/node_modules/@sveltejs/kit/dist/install-fetch.js'() {
 		init_shims();
@@ -576,23 +576,23 @@ var init_install_fetch = __esm({
 			typeof globalThis !== 'undefined'
 				? globalThis
 				: typeof window !== 'undefined'
-				? window
-				: typeof global !== 'undefined'
-				? global
-				: typeof self !== 'undefined'
-				? self
-				: {};
+					? window
+					: typeof global !== 'undefined'
+						? global
+						: typeof self !== 'undefined'
+							? self
+							: {};
 		src = dataUriToBuffer;
 		dataUriToBuffer$1 = src;
-		ponyfill_es2018 = { exports: {} };
-		(function (module2, exports) {
-			(function (global2, factory) {
+		ponyfill_es2018 = { exports: {} }
+		;(function(module2, exports) {
+			;(function(global2, factory) {
 				factory(exports);
-			})(commonjsGlobal, function (exports2) {
+			})(commonjsGlobal, function(exports2) {
 				const SymbolPolyfill =
 					typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol'
 						? Symbol
-						: (description) => `Symbol(${description})`;
+						: (description) => `Symbol(${ description })`;
 
 				function noop2() {
 					return void 0;
@@ -642,7 +642,7 @@ var init_install_fetch = __esm({
 						PerformPromiseThen(promise, onFulfilled, onRejected),
 						void 0,
 						rethrowAssertionErrorRejection
-					);
+					)
 				}
 
 				function uponFulfillment(promise, onFulfilled) {
@@ -668,7 +668,7 @@ var init_install_fetch = __esm({
 					}
 					const resolvedPromise = promiseResolvedWith(void 0);
 					return (fn) => PerformPromiseThen(resolvedPromise, fn);
-				})();
+				})()
 
 				function reflectCall(F, V, args) {
 					if (typeof F !== 'function') {
@@ -771,9 +771,11 @@ var init_install_fetch = __esm({
 					stream._reader = reader;
 					if (stream._state === 'readable') {
 						defaultReaderClosedPromiseInitialize(reader);
-					} else if (stream._state === 'closed') {
+					}
+					else if (stream._state === 'closed') {
 						defaultReaderClosedPromiseInitializeAsResolved(reader);
-					} else {
+					}
+					else {
 						defaultReaderClosedPromiseInitializeAsRejected(reader, stream._storedError);
 					}
 				}
@@ -790,8 +792,9 @@ var init_install_fetch = __esm({
 							new TypeError(
 								`Reader was released and can no longer be used to monitor the stream's closedness`
 							)
-						);
-					} else {
+						)
+					}
+					else {
 						defaultReaderClosedPromiseResetToRejected(
 							reader,
 							new TypeError(
@@ -811,7 +814,7 @@ var init_install_fetch = __esm({
 					reader._closedPromise = newPromise((resolve2, reject) => {
 						reader._closedPromise_resolve = resolve2;
 						reader._closedPromise_reject = reject;
-					});
+					})
 				}
 
 				function defaultReaderClosedPromiseInitializeAsRejected(reader, reason) {
@@ -853,12 +856,12 @@ var init_install_fetch = __esm({
 				const PullSteps = SymbolPolyfill('[[PullSteps]]');
 				const NumberIsFinite =
 					Number.isFinite ||
-					function (x) {
+					function(x) {
 						return typeof x === 'number' && isFinite(x);
 					};
 				const MathTrunc =
 					Math.trunc ||
-					function (v) {
+					function(v) {
 						return v < 0 ? Math.ceil(v) : Math.floor(v);
 					};
 
@@ -868,13 +871,13 @@ var init_install_fetch = __esm({
 
 				function assertDictionary(obj, context) {
 					if (obj !== void 0 && !isDictionary(obj)) {
-						throw new TypeError(`${context} is not an object.`);
+						throw new TypeError(`${ context } is not an object.`);
 					}
 				}
 
 				function assertFunction(x, context) {
 					if (typeof x !== 'function') {
-						throw new TypeError(`${context} is not a function.`);
+						throw new TypeError(`${ context } is not a function.`);
 					}
 				}
 
@@ -884,19 +887,19 @@ var init_install_fetch = __esm({
 
 				function assertObject(x, context) {
 					if (!isObject(x)) {
-						throw new TypeError(`${context} is not an object.`);
+						throw new TypeError(`${ context } is not an object.`);
 					}
 				}
 
 				function assertRequiredArgument(x, position, context) {
 					if (x === void 0) {
-						throw new TypeError(`Parameter ${position} is required in '${context}'.`);
+						throw new TypeError(`Parameter ${ position } is required in '${ context }'.`);
 					}
 				}
 
 				function assertRequiredField(x, field, context) {
 					if (x === void 0) {
-						throw new TypeError(`${field} is required in '${context}'.`);
+						throw new TypeError(`${ field } is required in '${ context }'.`);
 					}
 				}
 
@@ -918,12 +921,12 @@ var init_install_fetch = __esm({
 					let x = Number(value);
 					x = censorNegativeZero(x);
 					if (!NumberIsFinite(x)) {
-						throw new TypeError(`${context} is not a finite number`);
+						throw new TypeError(`${ context } is not a finite number`);
 					}
 					x = integerPart(x);
 					if (x < lowerBound || x > upperBound) {
 						throw new TypeError(
-							`${context} is outside the accepted range of ${lowerBound} to ${upperBound}, inclusive`
+							`${ context } is outside the accepted range of ${ lowerBound } to ${ upperBound }, inclusive`
 						);
 					}
 					if (!NumberIsFinite(x) || x === 0) {
@@ -934,7 +937,7 @@ var init_install_fetch = __esm({
 
 				function assertReadableStream(x, context) {
 					if (!IsReadableStream(x)) {
-						throw new TypeError(`${context} is not a ReadableStream.`);
+						throw new TypeError(`${ context } is not a ReadableStream.`);
 					}
 				}
 
@@ -951,7 +954,8 @@ var init_install_fetch = __esm({
 					const readRequest = reader._readRequests.shift();
 					if (done) {
 						readRequest._closeSteps();
-					} else {
+					}
+					else {
 						readRequest._chunkSteps(chunk);
 					}
 				}
@@ -1033,7 +1037,7 @@ var init_install_fetch = __esm({
 						if (this._readRequests.length > 0) {
 							throw new TypeError(
 								'Tried to release a reader lock when that reader has pending read() calls un-settled'
-							);
+							)
 						}
 						ReadableStreamReaderGenericRelease(this);
 					}
@@ -1044,12 +1048,12 @@ var init_install_fetch = __esm({
 					read: { enumerable: true },
 					releaseLock: { enumerable: true },
 					closed: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(ReadableStreamDefaultReader.prototype, SymbolPolyfill.toStringTag, {
 						value: 'ReadableStreamDefaultReader',
 						configurable: true
-					});
+					})
 				}
 
 				function IsReadableStreamDefaultReader(x) {
@@ -1067,9 +1071,11 @@ var init_install_fetch = __esm({
 					stream._disturbed = true;
 					if (stream._state === 'closed') {
 						readRequest._closeSteps();
-					} else if (stream._state === 'errored') {
+					}
+					else if (stream._state === 'errored') {
 						readRequest._errorSteps(stream._storedError);
-					} else {
+					}
+					else {
 						stream._readableStreamController[PullSteps](readRequest);
 					}
 				}
@@ -1077,12 +1083,12 @@ var init_install_fetch = __esm({
 				function defaultReaderBrandCheckException(name) {
 					return new TypeError(
 						`ReadableStreamDefaultReader.prototype.${name} can only be used on a ReadableStreamDefaultReader`
-					);
+					)
 				}
 
 				const AsyncIteratorPrototype = Object.getPrototypeOf(
 					Object.getPrototypeOf(async function* () {}).prototype
-				);
+				)
 
 				class ReadableStreamAsyncIteratorImpl {
 					constructor(reader, preventCancel) {
@@ -1104,7 +1110,7 @@ var init_install_fetch = __esm({
 						const returnSteps = () => this._returnSteps(value);
 						return this._ongoingPromise
 							? transformPromiseWith(this._ongoingPromise, returnSteps, returnSteps)
-							: returnSteps();
+							: returnSteps()
 					}
 
 					_nextSteps() {
@@ -1175,7 +1181,7 @@ var init_install_fetch = __esm({
 						}
 						return this._asyncIteratorImpl.return(value);
 					}
-				};
+				}
 				if (AsyncIteratorPrototype !== void 0) {
 					Object.setPrototypeOf(ReadableStreamAsyncIteratorPrototype, AsyncIteratorPrototype);
 				}
@@ -1205,14 +1211,14 @@ var init_install_fetch = __esm({
 				function streamAsyncIteratorBrandCheckException(name) {
 					return new TypeError(
 						`ReadableStreamAsyncIterator.${name} can only be used on a ReadableSteamAsyncIterator`
-					);
+					)
 				}
 
 				const NumberIsNaN =
 					Number.isNaN ||
 					function (x) {
 						return x !== x;
-					};
+					}
 
 				function CreateArrayFromList(elements) {
 					return elements.slice();
@@ -1330,7 +1336,7 @@ var init_install_fetch = __esm({
 						ReadableByteStreamControllerRespondWithNewView(
 							this._associatedReadableByteStreamController,
 							view
-						);
+						)
 					}
 				}
 
@@ -1338,12 +1344,12 @@ var init_install_fetch = __esm({
 					respond: { enumerable: true },
 					respondWithNewView: { enumerable: true },
 					view: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(ReadableStreamBYOBRequest.prototype, SymbolPolyfill.toStringTag, {
 						value: 'ReadableStreamBYOBRequest',
 						configurable: true
-					});
+					})
 				}
 
 				class ReadableByteStreamController {
@@ -1376,7 +1382,7 @@ var init_install_fetch = __esm({
 						if (state !== 'readable') {
 							throw new TypeError(
 								`The stream (in ${state} state) is not in the readable state and cannot be closed`
-							);
+							)
 						}
 						ReadableByteStreamControllerClose(this);
 					}
@@ -1402,7 +1408,7 @@ var init_install_fetch = __esm({
 						if (state !== 'readable') {
 							throw new TypeError(
 								`The stream (in ${state} state) is not in the readable state and cannot be enqueued to`
-							);
+							)
 						}
 						ReadableByteStreamControllerEnqueue(this, chunk);
 					}
@@ -1464,7 +1470,7 @@ var init_install_fetch = __esm({
 					error: { enumerable: true },
 					byobRequest: { enumerable: true },
 					desiredSize: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(
 						ReadableByteStreamController.prototype,
@@ -1473,7 +1479,7 @@ var init_install_fetch = __esm({
 							value: 'ReadableByteStreamController',
 							configurable: true
 						}
-					);
+					)
 				}
 
 				function IsReadableByteStreamController(x) {
@@ -1519,7 +1525,7 @@ var init_install_fetch = __esm({
 						(e) => {
 							ReadableByteStreamControllerError(controller, e);
 						}
-					);
+					)
 				}
 
 				function ReadableByteStreamControllerClearPendingPullIntos(controller) {
@@ -1533,7 +1539,7 @@ var init_install_fetch = __esm({
 						done = true;
 					}
 					const filledView =
-						ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor);
+						ReadableByteStreamControllerConvertPullIntoDescriptor(pullIntoDescriptor)
 					if (pullIntoDescriptor.readerType === 'default') {
 						ReadableStreamFulfillReadRequest(stream, filledView, done);
 					} else {
@@ -1594,7 +1600,8 @@ var init_install_fetch = __esm({
 						);
 						if (headOfQueue.byteLength === bytesToCopy) {
 							queue.shift();
-						} else {
+						}
+						else {
 							headOfQueue.byteOffset += bytesToCopy;
 							headOfQueue.byteLength -= bytesToCopy;
 						}
@@ -1759,7 +1766,8 @@ var init_install_fetch = __esm({
 					const state = controller._controlledReadableByteStream._state;
 					if (state === 'closed') {
 						ReadableByteStreamControllerRespondInClosedState(controller);
-					} else {
+					}
+					else {
 						ReadableByteStreamControllerRespondInReadableState(
 							controller,
 							bytesWritten,
@@ -1853,7 +1861,7 @@ var init_install_fetch = __esm({
 								transferredBuffer,
 								byteOffset,
 								byteLength
-							);
+							)
 						} else {
 							const transferredView = new Uint8Array(transferredBuffer, byteOffset, byteLength);
 							ReadableStreamFulfillReadRequest(stream, transferredView, false);
@@ -1872,7 +1880,7 @@ var init_install_fetch = __esm({
 							transferredBuffer,
 							byteOffset,
 							byteLength
-						);
+						)
 					}
 					ReadableByteStreamControllerCallPullIfNeeded(controller);
 				}
@@ -1923,7 +1931,8 @@ var init_install_fetch = __esm({
 								'bytesWritten must be 0 when calling respond() on a closed stream'
 							);
 						}
-					} else {
+					}
+					else {
 						if (bytesWritten === 0) {
 							throw new TypeError(
 								'bytesWritten must be greater than 0 when calling respond() on a readable stream'
@@ -1943,14 +1952,15 @@ var init_install_fetch = __esm({
 					if (state === 'closed') {
 						if (view.byteLength !== 0) {
 							throw new TypeError(
-								"The view's length must be 0 when calling respondWithNewView() on a closed stream"
+								'The view\'s length must be 0 when calling respondWithNewView() on a closed stream'
 							);
 						}
-					} else {
+					}
+					else {
 						if (view.byteLength === 0) {
 							throw new TypeError(
-								"The view's length must be greater than 0 when calling respondWithNewView() on a readable stream"
-							);
+								'The view\'s length must be greater than 0 when calling respondWithNewView() on a readable stream'
+							)
 						}
 					}
 					if (firstDescriptor.byteOffset + firstDescriptor.bytesFilled !== view.byteOffset) {
@@ -2032,7 +2042,7 @@ var init_install_fetch = __esm({
 						cancelAlgorithm,
 						highWaterMark,
 						autoAllocateChunkSize
-					);
+					)
 				}
 
 				function SetUpReadableStreamBYOBRequest(request, controller, view) {
@@ -2043,13 +2053,13 @@ var init_install_fetch = __esm({
 				function byobRequestBrandCheckException(name) {
 					return new TypeError(
 						`ReadableStreamBYOBRequest.prototype.${name} can only be used on a ReadableStreamBYOBRequest`
-					);
+					)
 				}
 
 				function byteStreamControllerBrandCheckException(name) {
 					return new TypeError(
 						`ReadableByteStreamController.prototype.${name} can only be used on a ReadableByteStreamController`
-					);
+					)
 				}
 
 				function AcquireReadableStreamBYOBReader(stream) {
@@ -2065,7 +2075,8 @@ var init_install_fetch = __esm({
 					const readIntoRequest = reader._readIntoRequests.shift();
 					if (done) {
 						readIntoRequest._closeSteps(chunk);
-					} else {
+					}
+					else {
 						readIntoRequest._chunkSteps(chunk);
 					}
 				}
@@ -2165,7 +2176,7 @@ var init_install_fetch = __esm({
 						if (this._readIntoRequests.length > 0) {
 							throw new TypeError(
 								'Tried to release a reader lock when that reader has pending read() calls un-settled'
-							);
+							)
 						}
 						ReadableStreamReaderGenericRelease(this);
 					}
@@ -2176,12 +2187,12 @@ var init_install_fetch = __esm({
 					read: { enumerable: true },
 					releaseLock: { enumerable: true },
 					closed: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(ReadableStreamBYOBReader.prototype, SymbolPolyfill.toStringTag, {
 						value: 'ReadableStreamBYOBReader',
 						configurable: true
-					});
+					})
 				}
 
 				function IsReadableStreamBYOBReader(x) {
@@ -2199,7 +2210,8 @@ var init_install_fetch = __esm({
 					stream._disturbed = true;
 					if (stream._state === 'errored') {
 						readIntoRequest._errorSteps(stream._storedError);
-					} else {
+					}
+					else {
 						ReadableByteStreamControllerPullInto(
 							stream._readableStreamController,
 							view,
@@ -2211,7 +2223,7 @@ var init_install_fetch = __esm({
 				function byobReaderBrandCheckException(name) {
 					return new TypeError(
 						`ReadableStreamBYOBReader.prototype.${name} can only be used on a ReadableStreamBYOBReader`
-					);
+					)
 				}
 
 				function ExtractHighWaterMark(strategy, defaultHWM) {
@@ -2243,7 +2255,7 @@ var init_install_fetch = __esm({
 						size:
 							size === void 0
 								? void 0
-								: convertQueuingStrategySize(size, `${context} has member 'size' that`)
+								: convertQueuingStrategySize(size, `${ context } has member 'size' that`)
 					};
 				}
 
@@ -2264,10 +2276,10 @@ var init_install_fetch = __esm({
 							abort === void 0
 								? void 0
 								: convertUnderlyingSinkAbortCallback(
-										abort,
-										original,
-										`${context} has member 'abort' that`
-								  ),
+									abort,
+									original,
+									`${ context } has member 'abort' that`
+								),
 						close:
 							close === void 0
 								? void 0
@@ -2293,7 +2305,7 @@ var init_install_fetch = __esm({
 										`${context} has member 'write' that`
 								  ),
 						type
-					};
+					}
 				}
 
 				function convertUnderlyingSinkAbortCallback(fn, original, context) {
@@ -2318,7 +2330,7 @@ var init_install_fetch = __esm({
 
 				function assertWritableStream(x, context) {
 					if (!IsWritableStream(x)) {
-						throw new TypeError(`${context} is not a WritableStream.`);
+						throw new TypeError(`${ context } is not a WritableStream.`);
 					}
 				}
 
@@ -2346,7 +2358,8 @@ var init_install_fetch = __esm({
 					constructor(rawUnderlyingSink = {}, rawStrategy = {}) {
 						if (rawUnderlyingSink === void 0) {
 							rawUnderlyingSink = null;
-						} else {
+						}
+						else {
 							assertObject(rawUnderlyingSink, 'First parameter');
 						}
 						const strategy = convertQueuingStrategy(rawStrategy, 'Second parameter');
@@ -2380,7 +2393,7 @@ var init_install_fetch = __esm({
 						if (IsWritableStreamLocked(this)) {
 							return promiseRejectedWith(
 								new TypeError('Cannot abort a stream that already has a writer')
-							);
+							)
 						}
 						return WritableStreamAbort(this, reason);
 					}
@@ -2392,7 +2405,7 @@ var init_install_fetch = __esm({
 						if (IsWritableStreamLocked(this)) {
 							return promiseRejectedWith(
 								new TypeError('Cannot close a stream that already has a writer')
-							);
+							)
 						}
 						if (WritableStreamCloseQueuedOrInFlight(this)) {
 							return promiseRejectedWith(new TypeError('Cannot close an already-closing stream'));
@@ -2413,12 +2426,12 @@ var init_install_fetch = __esm({
 					close: { enumerable: true },
 					getWriter: { enumerable: true },
 					locked: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(WritableStream.prototype, SymbolPolyfill.toStringTag, {
 						value: 'WritableStream',
 						configurable: true
-					});
+					})
 				}
 
 				function AcquireWritableStreamDefaultWriter(stream) {
@@ -2484,8 +2497,8 @@ var init_install_fetch = __esm({
 					if (stream._state === 'closed' || stream._state === 'errored') {
 						return promiseResolvedWith(void 0);
 					}
-					stream._writableStreamController._abortReason = reason;
-					(_a = stream._writableStreamController._abortController) === null || _a === void 0
+					stream._writableStreamController._abortReason = reason
+					;(_a = stream._writableStreamController._abortController) === null || _a === void 0
 						? void 0
 						: _a.abort();
 					const state = stream._state;
@@ -2521,7 +2534,7 @@ var init_install_fetch = __esm({
 					if (state === 'closed' || state === 'errored') {
 						return promiseRejectedWith(
 							new TypeError(
-								`The stream (in ${state} state) is not in the writable state and cannot be closed`
+								`The stream (in ${ state } state) is not in the writable state and cannot be closed`
 							)
 						);
 					}
@@ -2603,7 +2616,7 @@ var init_install_fetch = __esm({
 							abortRequest._reject(reason);
 							WritableStreamRejectCloseAndClosedPromiseIfNeeded(stream);
 						}
-					);
+					)
 				}
 
 				function WritableStreamFinishInFlightWrite(stream) {
@@ -2706,11 +2719,13 @@ var init_install_fetch = __esm({
 						if (state === 'writable') {
 							if (!WritableStreamCloseQueuedOrInFlight(stream) && stream._backpressure) {
 								defaultWriterReadyPromiseInitialize(this);
-							} else {
+							}
+							else {
 								defaultWriterReadyPromiseInitializeAsResolved(this);
 							}
 							defaultWriterClosedPromiseInitialize(this);
-						} else if (state === 'erroring') {
+						}
+						else if (state === 'erroring') {
 							defaultWriterReadyPromiseInitializeAsRejected(this, stream._storedError);
 							defaultWriterClosedPromiseInitialize(this);
 						} else if (state === 'closed') {
@@ -2801,12 +2816,12 @@ var init_install_fetch = __esm({
 					closed: { enumerable: true },
 					desiredSize: { enumerable: true },
 					ready: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(WritableStreamDefaultWriter.prototype, SymbolPolyfill.toStringTag, {
 						value: 'WritableStreamDefaultWriter',
 						configurable: true
-					});
+					})
 				}
 
 				function IsWritableStreamDefaultWriter(x) {
@@ -2925,7 +2940,7 @@ var init_install_fetch = __esm({
 						if (this._abortController === void 0) {
 							throw new TypeError(
 								'WritableStreamDefaultController.prototype.signal is not supported'
-							);
+							)
 						}
 						return this._abortController.signal;
 					}
@@ -2954,7 +2969,7 @@ var init_install_fetch = __esm({
 
 				Object.defineProperties(WritableStreamDefaultController.prototype, {
 					error: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(
 						WritableStreamDefaultController.prototype,
@@ -2963,7 +2978,7 @@ var init_install_fetch = __esm({
 							value: 'WritableStreamDefaultController',
 							configurable: true
 						}
-					);
+					)
 				}
 
 				function IsWritableStreamDefaultController(x) {
@@ -3013,7 +3028,7 @@ var init_install_fetch = __esm({
 							controller._started = true;
 							WritableStreamDealWithRejection(stream, r);
 						}
-					);
+					)
 				}
 
 				function SetUpWritableStreamDefaultControllerFromUnderlyingSink(
@@ -3048,7 +3063,7 @@ var init_install_fetch = __esm({
 						abortAlgorithm,
 						highWaterMark,
 						sizeAlgorithm
-					);
+					)
 				}
 
 				function WritableStreamDefaultControllerClearAlgorithms(controller) {
@@ -3160,7 +3175,7 @@ var init_install_fetch = __esm({
 							}
 							WritableStreamFinishInFlightWriteWithError(stream, reason);
 						}
-					);
+					)
 				}
 
 				function WritableStreamDefaultControllerGetBackpressure(controller) {
@@ -3177,19 +3192,19 @@ var init_install_fetch = __esm({
 				function streamBrandCheckException$2(name) {
 					return new TypeError(
 						`WritableStream.prototype.${name} can only be used on a WritableStream`
-					);
+					)
 				}
 
 				function defaultControllerBrandCheckException$2(name) {
 					return new TypeError(
 						`WritableStreamDefaultController.prototype.${name} can only be used on a WritableStreamDefaultController`
-					);
+					)
 				}
 
 				function defaultWriterBrandCheckException(name) {
 					return new TypeError(
 						`WritableStreamDefaultWriter.prototype.${name} can only be used on a WritableStreamDefaultWriter`
-					);
+					)
 				}
 
 				function defaultWriterLockException(name) {
@@ -3201,7 +3216,7 @@ var init_install_fetch = __esm({
 						writer._closedPromise_resolve = resolve2;
 						writer._closedPromise_reject = reject;
 						writer._closedPromiseState = 'pending';
-					});
+					})
 				}
 
 				function defaultWriterClosedPromiseInitializeAsRejected(writer, reason) {
@@ -3319,7 +3334,7 @@ var init_install_fetch = __esm({
 
 				const DOMException$1 = isDOMExceptionConstructor(NativeDOMException)
 					? NativeDOMException
-					: createDOMExceptionPolyfill();
+					: createDOMExceptionPolyfill()
 
 				function ReadableStreamPipeTo(
 					source,
@@ -3374,13 +3389,14 @@ var init_install_fetch = __esm({
 								function next(done) {
 									if (done) {
 										resolveLoop();
-									} else {
+									}
+									else {
 										PerformPromiseThen(pipeStep(), next, rejectLoop);
 									}
 								}
 
 								next(false);
-							});
+							})
 						}
 
 						function pipeStep() {
@@ -3400,18 +3416,19 @@ var init_install_fetch = __esm({
 										},
 										_closeSteps: () => resolveRead(true),
 										_errorSteps: rejectRead
-									});
-								});
-							});
+									})
+								})
+							})
 						}
 
 						isOrBecomesErrored(source, reader._closedPromise, (storedError) => {
 							if (!preventAbort) {
 								shutdownWithAction(() => WritableStreamAbort(dest, storedError), true, storedError);
-							} else {
+							}
+							else {
 								shutdown(true, storedError);
 							}
-						});
+						})
 						isOrBecomesErrored(dest, writer._closedPromise, (storedError) => {
 							if (!preventCancel) {
 								shutdownWithAction(
@@ -3419,29 +3436,27 @@ var init_install_fetch = __esm({
 									true,
 									storedError
 								);
-							} else {
+							}
+							else {
 								shutdown(true, storedError);
 							}
-						});
+						})
 						isOrBecomesClosed(source, reader._closedPromise, () => {
 							if (!preventClose) {
 								shutdownWithAction(() =>
 									WritableStreamDefaultWriterCloseWithErrorPropagation(writer)
 								);
-							} else {
+							}
+							else {
 								shutdown();
 							}
-						});
+						})
 						if (WritableStreamCloseQueuedOrInFlight(dest) || dest._state === 'closed') {
 							const destClosed = new TypeError(
 								'the destination writable stream closed before all data could be piped to it'
-							);
+							)
 							if (!preventCancel) {
-								shutdownWithAction(
-									() => ReadableStreamCancel(source, destClosed),
-									true,
-									destClosed
-								);
+								shutdownWithAction(() => ReadableStreamCancel(source, destClosed), true, destClosed);
 							} else {
 								shutdown(true, destClosed);
 							}
@@ -3452,7 +3467,7 @@ var init_install_fetch = __esm({
 							const oldCurrentWrite = currentWrite;
 							return PerformPromiseThen(currentWrite, () =>
 								oldCurrentWrite !== currentWrite ? waitForWritesToFinish() : void 0
-							);
+							)
 						}
 
 						function isOrBecomesErrored(stream, promise, action) {
@@ -3487,7 +3502,7 @@ var init_install_fetch = __esm({
 									action(),
 									() => finalize(originalIsError, originalError),
 									(newError) => finalize(true, newError)
-								);
+								)
 							}
 						}
 
@@ -3511,11 +3526,12 @@ var init_install_fetch = __esm({
 							}
 							if (isError) {
 								reject(error2);
-							} else {
+							}
+							else {
 								resolve2(void 0);
 							}
 						}
-					});
+					})
 				}
 
 				class ReadableStreamDefaultController {
@@ -3587,7 +3603,7 @@ var init_install_fetch = __esm({
 					enqueue: { enumerable: true },
 					error: { enumerable: true },
 					desiredSize: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(
 						ReadableStreamDefaultController.prototype,
@@ -3596,7 +3612,7 @@ var init_install_fetch = __esm({
 							value: 'ReadableStreamDefaultController',
 							configurable: true
 						}
-					);
+					)
 				}
 
 				function IsReadableStreamDefaultController(x) {
@@ -3632,7 +3648,7 @@ var init_install_fetch = __esm({
 						(e) => {
 							ReadableStreamDefaultControllerError(controller, e);
 						}
-					);
+					)
 				}
 
 				function ReadableStreamDefaultControllerShouldCallPull(controller) {
@@ -3794,13 +3810,13 @@ var init_install_fetch = __esm({
 						cancelAlgorithm,
 						highWaterMark,
 						sizeAlgorithm
-					);
+					)
 				}
 
 				function defaultControllerBrandCheckException$1(name) {
 					return new TypeError(
 						`ReadableStreamDefaultController.prototype.${name} can only be used on a ReadableStreamDefaultController`
-					);
+					)
 				}
 
 				function ReadableStreamTee(stream, cloneForBranch2) {
@@ -3847,7 +3863,7 @@ var init_install_fetch = __esm({
 											chunk2
 										);
 									}
-								});
+								})
 							},
 							_closeSteps: () => {
 								reading = false;
@@ -3864,7 +3880,7 @@ var init_install_fetch = __esm({
 							_errorSteps: () => {
 								reading = false;
 							}
-						};
+						}
 						ReadableStreamDefaultReaderRead(reader, readRequest);
 						return promiseResolvedWith(void 0);
 					}
@@ -3947,7 +3963,8 @@ var init_install_fetch = __esm({
 									if (!canceled1 && !canceled2) {
 										try {
 											chunk2 = CloneAsUint8Array(chunk);
-										} catch (cloneE) {
+										}
+										catch (cloneE) {
 											ReadableByteStreamControllerError(branch1._readableStreamController, cloneE);
 											ReadableByteStreamControllerError(branch2._readableStreamController, cloneE);
 											resolveCancelPromise(ReadableStreamCancel(stream, cloneE));
@@ -3960,7 +3977,7 @@ var init_install_fetch = __esm({
 									if (!canceled2) {
 										ReadableByteStreamControllerEnqueue(branch2._readableStreamController, chunk2);
 									}
-								});
+								})
 							},
 							_closeSteps: () => {
 								reading = false;
@@ -3983,7 +4000,7 @@ var init_install_fetch = __esm({
 							_errorSteps: () => {
 								reading = false;
 							}
-						};
+						}
 						ReadableStreamDefaultReaderRead(reader, readRequest);
 					}
 
@@ -4005,7 +4022,8 @@ var init_install_fetch = __esm({
 										let clonedChunk;
 										try {
 											clonedChunk = CloneAsUint8Array(chunk);
-										} catch (cloneE) {
+										}
+										catch (cloneE) {
 											ReadableByteStreamControllerError(
 												byobBranch._readableStreamController,
 												cloneE
@@ -4021,19 +4039,20 @@ var init_install_fetch = __esm({
 											ReadableByteStreamControllerRespondWithNewView(
 												byobBranch._readableStreamController,
 												chunk
-											);
+											)
 										}
 										ReadableByteStreamControllerEnqueue(
 											otherBranch._readableStreamController,
 											clonedChunk
 										);
-									} else if (!byobCanceled) {
+									}
+									else if (!byobCanceled) {
 										ReadableByteStreamControllerRespondWithNewView(
 											byobBranch._readableStreamController,
 											chunk
 										);
 									}
-								});
+								})
 							},
 							_closeSteps: (chunk) => {
 								reading = false;
@@ -4050,7 +4069,7 @@ var init_install_fetch = __esm({
 										ReadableByteStreamControllerRespondWithNewView(
 											byobBranch._readableStreamController,
 											chunk
-										);
+										)
 									}
 									if (
 										!otherCanceled &&
@@ -4066,7 +4085,7 @@ var init_install_fetch = __esm({
 							_errorSteps: () => {
 								reading = false;
 							}
-						};
+						}
 						ReadableStreamBYOBReaderRead(reader, view, readIntoRequest);
 					}
 
@@ -4077,7 +4096,7 @@ var init_install_fetch = __esm({
 						reading = true;
 						const byobRequest = ReadableByteStreamControllerGetBYOBRequest(
 							branch1._readableStreamController
-						);
+						)
 						if (byobRequest === null) {
 							pullWithDefaultReader();
 						} else {
@@ -4093,7 +4112,7 @@ var init_install_fetch = __esm({
 						reading = true;
 						const byobRequest = ReadableByteStreamControllerGetBYOBRequest(
 							branch2._readableStreamController
-						);
+						)
 						if (byobRequest === null) {
 							pullWithDefaultReader();
 						} else {
@@ -4148,9 +4167,9 @@ var init_install_fetch = __esm({
 							autoAllocateChunkSize === void 0
 								? void 0
 								: convertUnsignedLongLongWithEnforceRange(
-										autoAllocateChunkSize,
-										`${context} has member 'autoAllocateChunkSize' that`
-								  ),
+									autoAllocateChunkSize,
+									`${ context } has member 'autoAllocateChunkSize' that`
+								),
 						cancel:
 							cancel === void 0
 								? void 0
@@ -4179,7 +4198,7 @@ var init_install_fetch = __esm({
 							type === void 0
 								? void 0
 								: convertReadableStreamType(type, `${context} has member 'type' that`)
-					};
+					}
 				}
 
 				function convertUnderlyingSourceCancelCallback(fn, original, context) {
@@ -4198,11 +4217,11 @@ var init_install_fetch = __esm({
 				}
 
 				function convertReadableStreamType(type, context) {
-					type = `${type}`;
+					type = `${ type }`;
 					if (type !== 'bytes') {
 						throw new TypeError(
 							`${context} '${type}' is not a valid enumeration value for ReadableStreamType`
-						);
+						)
 					}
 					return type;
 				}
@@ -4214,16 +4233,16 @@ var init_install_fetch = __esm({
 						mode:
 							mode === void 0
 								? void 0
-								: convertReadableStreamReaderMode(mode, `${context} has member 'mode' that`)
+								: convertReadableStreamReaderMode(mode, `${ context } has member 'mode' that`)
 					};
 				}
 
 				function convertReadableStreamReaderMode(mode, context) {
-					mode = `${mode}`;
+					mode = `${ mode }`;
 					if (mode !== 'byob') {
 						throw new TypeError(
 							`${context} '${mode}' is not a valid enumeration value for ReadableStreamReaderMode`
-						);
+						)
 					}
 					return mode;
 				}
@@ -4245,7 +4264,7 @@ var init_install_fetch = __esm({
 						options2 === null || options2 === void 0 ? void 0 : options2.preventClose;
 					const signal = options2 === null || options2 === void 0 ? void 0 : options2.signal;
 					if (signal !== void 0) {
-						assertAbortSignal(signal, `${context} has member 'signal' that`);
+						assertAbortSignal(signal, `${ context } has member 'signal' that`);
 					}
 					return {
 						preventAbort: Boolean(preventAbort),
@@ -4257,7 +4276,7 @@ var init_install_fetch = __esm({
 
 				function assertAbortSignal(signal, context) {
 					if (!isAbortSignal2(signal)) {
-						throw new TypeError(`${context} is not an AbortSignal.`);
+						throw new TypeError(`${ context } is not an AbortSignal.`);
 					}
 				}
 
@@ -4265,10 +4284,10 @@ var init_install_fetch = __esm({
 					assertDictionary(pair, context);
 					const readable = pair === null || pair === void 0 ? void 0 : pair.readable;
 					assertRequiredField(readable, 'readable', 'ReadableWritablePair');
-					assertReadableStream(readable, `${context} has member 'readable' that`);
+					assertReadableStream(readable, `${ context } has member 'readable' that`);
 					const writable3 = pair === null || pair === void 0 ? void 0 : pair.writable;
 					assertRequiredField(writable3, 'writable', 'ReadableWritablePair');
-					assertWritableStream(writable3, `${context} has member 'writable' that`);
+					assertWritableStream(writable3, `${ context } has member 'writable' that`);
 					return { readable, writable: writable3 };
 				}
 
@@ -4276,7 +4295,8 @@ var init_install_fetch = __esm({
 					constructor(rawUnderlyingSource = {}, rawStrategy = {}) {
 						if (rawUnderlyingSource === void 0) {
 							rawUnderlyingSource = null;
-						} else {
+						}
+						else {
 							assertObject(rawUnderlyingSource, 'First parameter');
 						}
 						const strategy = convertQueuingStrategy(rawStrategy, 'Second parameter');
@@ -4321,7 +4341,7 @@ var init_install_fetch = __esm({
 						if (IsReadableStreamLocked(this)) {
 							return promiseRejectedWith(
 								new TypeError('Cannot cancel a stream that already has a reader')
-							);
+							)
 						}
 						return ReadableStreamCancel(this, reason);
 					}
@@ -4378,7 +4398,7 @@ var init_install_fetch = __esm({
 								new TypeError(
 									`ReadableStream.prototype.pipeTo's first argument must be a WritableStream`
 								)
-							);
+							)
 						}
 						let options2;
 						try {
@@ -4391,14 +4411,14 @@ var init_install_fetch = __esm({
 								new TypeError(
 									'ReadableStream.prototype.pipeTo cannot be used on a locked ReadableStream'
 								)
-							);
+							)
 						}
 						if (IsWritableStreamLocked(destination)) {
 							return promiseRejectedWith(
 								new TypeError(
 									'ReadableStream.prototype.pipeTo cannot be used on a locked WritableStream'
 								)
-							);
+							)
 						}
 						return ReadableStreamPipeTo(
 							this,
@@ -4407,7 +4427,7 @@ var init_install_fetch = __esm({
 							options2.preventAbort,
 							options2.preventCancel,
 							options2.signal
-						);
+						)
 					}
 
 					tee() {
@@ -4435,19 +4455,19 @@ var init_install_fetch = __esm({
 					tee: { enumerable: true },
 					values: { enumerable: true },
 					locked: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(ReadableStream2.prototype, SymbolPolyfill.toStringTag, {
 						value: 'ReadableStream',
 						configurable: true
-					});
+					})
 				}
 				if (typeof SymbolPolyfill.asyncIterator === 'symbol') {
 					Object.defineProperty(ReadableStream2.prototype, SymbolPolyfill.asyncIterator, {
 						value: ReadableStream2.prototype.values,
 						writable: true,
 						configurable: true
-					});
+					})
 				}
 
 				function CreateReadableStream(
@@ -4560,7 +4580,8 @@ var init_install_fetch = __esm({
 							readRequest._errorSteps(e);
 						});
 						reader._readRequests = new SimpleQueue();
-					} else {
+					}
+					else {
 						reader._readIntoRequests.forEach((readIntoRequest) => {
 							readIntoRequest._errorSteps(e);
 						});
@@ -4571,7 +4592,7 @@ var init_install_fetch = __esm({
 				function streamBrandCheckException$1(name) {
 					return new TypeError(
 						`ReadableStream.prototype.${name} can only be used on a ReadableStream`
-					);
+					)
 				}
 
 				function convertQueuingStrategyInit(init2, context) {
@@ -4585,11 +4606,11 @@ var init_install_fetch = __esm({
 
 				const byteLengthSizeFunction = (chunk) => {
 					return chunk.byteLength;
-				};
+				}
 				Object.defineProperty(byteLengthSizeFunction, 'name', {
 					value: 'size',
 					configurable: true
-				});
+				})
 
 				class ByteLengthQueuingStrategy {
 					constructor(options2) {
@@ -4616,18 +4637,18 @@ var init_install_fetch = __esm({
 				Object.defineProperties(ByteLengthQueuingStrategy.prototype, {
 					highWaterMark: { enumerable: true },
 					size: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(ByteLengthQueuingStrategy.prototype, SymbolPolyfill.toStringTag, {
 						value: 'ByteLengthQueuingStrategy',
 						configurable: true
-					});
+					})
 				}
 
 				function byteLengthBrandCheckException(name) {
 					return new TypeError(
 						`ByteLengthQueuingStrategy.prototype.${name} can only be used on a ByteLengthQueuingStrategy`
-					);
+					)
 				}
 
 				function IsByteLengthQueuingStrategy(x) {
@@ -4642,11 +4663,11 @@ var init_install_fetch = __esm({
 
 				const countSizeFunction = () => {
 					return 1;
-				};
+				}
 				Object.defineProperty(countSizeFunction, 'name', {
 					value: 'size',
 					configurable: true
-				});
+				})
 
 				class CountQueuingStrategy {
 					constructor(options2) {
@@ -4673,18 +4694,18 @@ var init_install_fetch = __esm({
 				Object.defineProperties(CountQueuingStrategy.prototype, {
 					highWaterMark: { enumerable: true },
 					size: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(CountQueuingStrategy.prototype, SymbolPolyfill.toStringTag, {
 						value: 'CountQueuingStrategy',
 						configurable: true
-					});
+					})
 				}
 
 				function countBrandCheckException(name) {
 					return new TypeError(
 						`CountQueuingStrategy.prototype.${name} can only be used on a CountQueuingStrategy`
-					);
+					)
 				}
 
 				function IsCountQueuingStrategy(x) {
@@ -4711,9 +4732,9 @@ var init_install_fetch = __esm({
 							flush === void 0
 								? void 0
 								: convertTransformerFlushCallback(
-										flush,
-										original,
-										`${context} has member 'flush' that`
+									flush,
+									original,
+									`${ context } has member 'flush' that`
 								  ),
 						readableType,
 						start:
@@ -4733,7 +4754,7 @@ var init_install_fetch = __esm({
 										`${context} has member 'transform' that`
 								  ),
 						writableType
-					};
+					}
 				}
 
 				function convertTransformerFlushCallback(fn, original, context) {
@@ -4756,10 +4777,7 @@ var init_install_fetch = __esm({
 						if (rawTransformer === void 0) {
 							rawTransformer = null;
 						}
-						const writableStrategy = convertQueuingStrategy(
-							rawWritableStrategy,
-							'Second parameter'
-						);
+						const writableStrategy = convertQueuingStrategy(rawWritableStrategy, 'Second parameter');
 						const readableStrategy = convertQueuingStrategy(rawReadableStrategy, 'Third parameter');
 						const transformer = convertTransformer(rawTransformer, 'First parameter');
 						if (transformer.readableType !== void 0) {
@@ -4787,7 +4805,8 @@ var init_install_fetch = __esm({
 						SetUpTransformStreamDefaultControllerFromTransformer(this, transformer);
 						if (transformer.start !== void 0) {
 							startPromise_resolve(transformer.start(this._transformStreamController));
-						} else {
+						}
+						else {
 							startPromise_resolve(void 0);
 						}
 					}
@@ -4810,12 +4829,12 @@ var init_install_fetch = __esm({
 				Object.defineProperties(TransformStream.prototype, {
 					readable: { enumerable: true },
 					writable: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(TransformStream.prototype, SymbolPolyfill.toStringTag, {
 						value: 'TransformStream',
 						configurable: true
-					});
+					})
 				}
 
 				function InitializeTransformStream(
@@ -4849,7 +4868,7 @@ var init_install_fetch = __esm({
 						abortAlgorithm,
 						writableHighWaterMark,
 						writableSizeAlgorithm
-					);
+					)
 
 					function pullAlgorithm() {
 						return TransformStreamDefaultSourcePullAlgorithm(stream);
@@ -4951,7 +4970,7 @@ var init_install_fetch = __esm({
 					error: { enumerable: true },
 					terminate: { enumerable: true },
 					desiredSize: { enumerable: true }
-				});
+				})
 				if (typeof SymbolPolyfill.toStringTag === 'symbol') {
 					Object.defineProperty(
 						TransformStreamDefaultController.prototype,
@@ -4960,7 +4979,7 @@ var init_install_fetch = __esm({
 							value: 'TransformStreamDefaultController',
 							configurable: true
 						}
-					);
+					)
 				}
 
 				function IsTransformStreamDefaultController(x) {
@@ -4991,7 +5010,8 @@ var init_install_fetch = __esm({
 						try {
 							TransformStreamDefaultControllerEnqueue(controller, chunk);
 							return promiseResolvedWith(void 0);
-						} catch (transformResultE) {
+						}
+						catch (transformResultE) {
 							return promiseRejectedWith(transformResultE);
 						}
 					};
@@ -5007,7 +5027,7 @@ var init_install_fetch = __esm({
 						controller,
 						transformAlgorithm,
 						flushAlgorithm
-					);
+					)
 				}
 
 				function TransformStreamDefaultControllerClearAlgorithms(controller) {
@@ -5023,7 +5043,8 @@ var init_install_fetch = __esm({
 					}
 					try {
 						ReadableStreamDefaultControllerEnqueue(readableController, chunk);
-					} catch (e) {
+					}
+					catch (e) {
 						TransformStreamErrorWritableAndUnblockWrite(stream, e);
 						throw stream._readable._storedError;
 					}
@@ -5042,7 +5063,7 @@ var init_install_fetch = __esm({
 					return transformPromiseWith(transformPromise, void 0, (r) => {
 						TransformStreamError(controller._controlledTransformStream, r);
 						throw r;
-					});
+					})
 				}
 
 				function TransformStreamDefaultControllerTerminate(controller) {
@@ -5064,7 +5085,7 @@ var init_install_fetch = __esm({
 								throw writable3._storedError;
 							}
 							return TransformStreamDefaultControllerPerformTransform(controller, chunk);
-						});
+						})
 					}
 					return TransformStreamDefaultControllerPerformTransform(controller, chunk);
 				}
@@ -5091,7 +5112,7 @@ var init_install_fetch = __esm({
 							TransformStreamError(stream, r);
 							throw readable._storedError;
 						}
-					);
+					)
 				}
 
 				function TransformStreamDefaultSourcePullAlgorithm(stream) {
@@ -5101,13 +5122,13 @@ var init_install_fetch = __esm({
 
 				function defaultControllerBrandCheckException(name) {
 					return new TypeError(
-						`TransformStreamDefaultController.prototype.${name} can only be used on a TransformStreamDefaultController`
-					);
+						`TransformStreamDefaultController.prototype.${ name } can only be used on a TransformStreamDefaultController`
+					)
 				}
 
 				function streamBrandCheckException(name) {
 					return new TypeError(
-						`TransformStream.prototype.${name} can only be used on a TransformStream`
+						`TransformStream.prototype.${ name } can only be used on a TransformStream`
 					);
 				}
 
@@ -5125,8 +5146,8 @@ var init_install_fetch = __esm({
 				exports2.WritableStreamDefaultController = WritableStreamDefaultController;
 				exports2.WritableStreamDefaultWriter = WritableStreamDefaultWriter;
 				Object.defineProperty(exports2, '__esModule', { value: true });
-			});
-		})(ponyfill_es2018, ponyfill_es2018.exports);
+			})
+		})(ponyfill_es2018, ponyfill_es2018.exports)
 		POOL_SIZE$1 = 65536;
 		if (!globalThis.ReadableStream) {
 			try {
@@ -5136,7 +5157,8 @@ var init_install_fetch = __esm({
 					process2.emitWarning = () => {};
 					Object.assign(globalThis, require('node:stream/web'));
 					process2.emitWarning = emitWarning;
-				} catch (error2) {
+				}
+				catch (error2) {
 					process2.emitWarning = emitWarning;
 					throw error2;
 				}
@@ -5162,7 +5184,7 @@ var init_install_fetch = __esm({
 							}
 						}
 					});
-				};
+				}
 			}
 		} catch (error2) {}
 		POOL_SIZE = 65536;
@@ -5174,18 +5196,18 @@ var init_install_fetch = __esm({
 			constructor(blobParts = [], options2 = {}) {
 				if (typeof blobParts !== 'object' || blobParts === null) {
 					throw new TypeError(
-						"Failed to construct 'Blob': The provided value cannot be converted to a sequence."
+						'Failed to construct \'Blob\': The provided value cannot be converted to a sequence.'
 					);
 				}
 				if (typeof blobParts[Symbol.iterator] !== 'function') {
 					throw new TypeError(
-						"Failed to construct 'Blob': The object must have a callable @@iterator property."
-					);
+						'Failed to construct \'Blob\': The object must have a callable @@iterator property.'
+					)
 				}
 				if (typeof options2 !== 'object' && typeof options2 !== 'function') {
 					throw new TypeError(
 						"Failed to construct 'Blob': parameter 2 cannot convert to dictionary."
-					);
+					)
 				}
 				if (options2 === null) {
 					options2 = {};
@@ -5197,11 +5219,14 @@ var init_install_fetch = __esm({
 						part = new Uint8Array(
 							element.buffer.slice(element.byteOffset, element.byteOffset + element.byteLength)
 						);
-					} else if (element instanceof ArrayBuffer) {
+					}
+					else if (element instanceof ArrayBuffer) {
 						part = new Uint8Array(element.slice(0));
-					} else if (element instanceof Blob) {
+					}
+					else if (element instanceof Blob) {
 						part = element;
-					} else {
+					}
+					else {
 						part = encoder.encode(element);
 					}
 					this.#size += ArrayBuffer.isView(part) ? part.byteLength : part.size;
@@ -5230,7 +5255,7 @@ var init_install_fetch = __esm({
 					typeof object.constructor === 'function' &&
 					(typeof object.stream === 'function' || typeof object.arrayBuffer === 'function') &&
 					/^(Blob|File)$/.test(object[Symbol.toStringTag])
-				);
+				)
 			}
 
 			async text() {
@@ -5264,7 +5289,7 @@ var init_install_fetch = __esm({
 					async cancel() {
 						await it.return();
 					}
-				});
+				})
 			}
 
 			slice(start = 0, end = this.size, type = '') {
@@ -5283,12 +5308,14 @@ var init_install_fetch = __esm({
 					if (relativeStart && size2 <= relativeStart) {
 						relativeStart -= size2;
 						relativeEnd -= size2;
-					} else {
+					}
+					else {
 						let chunk;
 						if (ArrayBuffer.isView(part)) {
 							chunk = part.subarray(relativeStart, Math.min(size2, relativeEnd));
 							added += chunk.byteLength;
-						} else {
+						}
+						else {
 							chunk = part.slice(relativeStart, Math.min(size2, relativeEnd));
 							added += chunk.size;
 						}
@@ -5302,7 +5329,7 @@ var init_install_fetch = __esm({
 				blob.#parts = blobParts;
 				return blob;
 			}
-		};
+		}
 		Object.defineProperties(_Blob.prototype, {
 			size: { enumerable: true },
 			type: { enumerable: true },
@@ -5324,7 +5351,7 @@ var init_install_fetch = __esm({
 			get [Symbol.toStringTag]() {
 				return this.constructor.name;
 			}
-		};
+		}
 		FetchError = class extends FetchBaseError {
 			constructor(message, type, systemError) {
 				super(message, type);
@@ -5357,7 +5384,7 @@ var init_install_fetch = __esm({
 				typeof object.constructor === 'function' &&
 				/^(Blob|File)$/.test(object[NAME])
 			);
-		};
+		}
 		isAbortSignal = (object) => {
 			return (
 				typeof object === 'object' &&
@@ -5367,7 +5394,7 @@ var init_install_fetch = __esm({
 		carriage = '\r\n';
 		dashes = '-'.repeat(2);
 		carriageLength = Buffer.byteLength(carriage);
-		getFooter = (boundary) => `${dashes}${boundary}${dashes}${carriage.repeat(2)}`;
+		getFooter = (boundary) => `${ dashes }${ boundary }${ dashes }${ carriage.repeat(2) }`;
 		getBoundary = () => (0, import_crypto.randomBytes)(8).toString('hex');
 		INTERNALS$2 = Symbol('Body internals');
 		Body = class {
@@ -5375,19 +5402,24 @@ var init_install_fetch = __esm({
 				let boundary = null;
 				if (body === null) {
 					body = null;
-				} else if (isURLSearchParameters(body)) {
+				}
+				else if (isURLSearchParameters(body)) {
 					body = Buffer.from(body.toString());
-				} else if (isBlob(body)) {
-				} else if (Buffer.isBuffer(body)) {
-				} else if (import_util.types.isAnyArrayBuffer(body)) {
+				}
+				else if (isBlob(body)) {
+				}
+				else if (Buffer.isBuffer(body)) {
+				}
+				else if (import_util.types.isAnyArrayBuffer(body)) {
 					body = Buffer.from(body);
 				} else if (ArrayBuffer.isView(body)) {
 					body = Buffer.from(body.buffer, body.byteOffset, body.byteLength);
 				} else if (body instanceof import_stream.default) {
 				} else if (isFormData(body)) {
-					boundary = `NodeFetchFormDataBoundary${getBoundary()}`;
+					boundary = `NodeFetchFormDataBoundary${ getBoundary() }`;
 					body = import_stream.default.Readable.from(formDataIterator(body, boundary));
-				} else {
+				}
+				else {
 					body = Buffer.from(String(body));
 				}
 				this[INTERNALS$2] = {
@@ -5403,10 +5435,10 @@ var init_install_fetch = __esm({
 							error_ instanceof FetchBaseError
 								? error_
 								: new FetchError(
-										`Invalid response body while trying to fetch ${this.url}: ${error_.message}`,
-										'system',
-										error_
-								  );
+									`Invalid response body while trying to fetch ${ this.url }: ${ error_.message }`,
+									'system',
+									error_
+								);
 						this[INTERNALS$2].error = error2;
 					});
 				}
@@ -5449,7 +5481,7 @@ var init_install_fetch = __esm({
 			buffer() {
 				return consumeBody(this);
 			}
-		};
+		}
 		Object.defineProperties(Body.prototype, {
 			body: { enumerable: true },
 			bodyUsed: { enumerable: true },
@@ -5457,7 +5489,7 @@ var init_install_fetch = __esm({
 			blob: { enumerable: true },
 			json: { enumerable: true },
 			text: { enumerable: true }
-		});
+		})
 		clone = (instance, highWaterMark) => {
 			let p1;
 			let p2;
@@ -5474,7 +5506,7 @@ var init_install_fetch = __esm({
 				body = p2;
 			}
 			return body;
-		};
+		}
 		extractContentType = (body, request) => {
 			if (body === null) {
 				return null;
@@ -5496,16 +5528,16 @@ var init_install_fetch = __esm({
 				return null;
 			}
 			if (body && typeof body.getBoundary === 'function') {
-				return `multipart/form-data;boundary=${body.getBoundary()}`;
+				return `multipart/form-data;boundary=${ body.getBoundary() }`;
 			}
 			if (isFormData(body)) {
-				return `multipart/form-data; boundary=${request[INTERNALS$2].boundary}`;
+				return `multipart/form-data; boundary=${ request[INTERNALS$2].boundary }`;
 			}
 			if (body instanceof import_stream.default) {
 				return null;
 			}
 			return 'text/plain;charset=UTF-8';
-		};
+		}
 		getTotalBytes = (request) => {
 			const { body } = request;
 			if (body === null) {
@@ -5524,7 +5556,7 @@ var init_install_fetch = __esm({
 				return getFormDataLength(request[INTERNALS$2].boundary);
 			}
 			return null;
-		};
+		}
 		writeToStream = (dest, { body }) => {
 			if (body === null) {
 				dest.end();
@@ -5536,27 +5568,27 @@ var init_install_fetch = __esm({
 			} else {
 				body.pipe(dest);
 			}
-		};
+		}
 		validateHeaderName =
 			typeof import_http.default.validateHeaderName === 'function'
 				? import_http.default.validateHeaderName
 				: (name) => {
 						if (!/^[\^`\-\w!#$%&'*+.|~]+$/.test(name)) {
-							const error2 = new TypeError(`Header name must be a valid HTTP token [${name}]`);
+							const error2 = new TypeError(`Header name must be a valid HTTP token [${ name }]`);
 							Object.defineProperty(error2, 'code', { value: 'ERR_INVALID_HTTP_TOKEN' });
 							throw error2;
 						}
-				  };
+				}
 		validateHeaderValue =
 			typeof import_http.default.validateHeaderValue === 'function'
 				? import_http.default.validateHeaderValue
 				: (name, value) => {
 						if (/[^\t\u0020-\u007E\u0080-\u00FF]/.test(value)) {
-							const error2 = new TypeError(`Invalid character in header content ["${name}"]`);
+							const error2 = new TypeError(`Invalid character in header content ["${ name }"]`);
 							Object.defineProperty(error2, 'code', { value: 'ERR_INVALID_CHAR' });
 							throw error2;
 						}
-				  };
+				}
 		Headers = class extends URLSearchParams {
 			constructor(init2) {
 				let result = [];
@@ -5586,20 +5618,20 @@ var init_install_fetch = __esm({
 									throw new TypeError('Each header pair must be a name/value tuple');
 								}
 								return [...pair];
-							});
+							})
 					}
 				} else {
 					throw new TypeError(
-						"Failed to construct 'Headers': The provided value is not of type '(sequence<sequence<ByteString>> or record<ByteString, ByteString>)"
-					);
+						'Failed to construct \'Headers\': The provided value is not of type \'(sequence<sequence<ByteString>> or record<ByteString, ByteString>)'
+					)
 				}
 				result =
 					result.length > 0
 						? result.map(([name, value]) => {
-								validateHeaderName(name);
-								validateHeaderValue(name, String(value));
-								return [String(name).toLowerCase(), String(value)];
-						  })
+							validateHeaderName(name);
+							validateHeaderValue(name, String(value));
+							return [String(name).toLowerCase(), String(value)];
+						})
 						: void 0;
 				super(result);
 				return new Proxy(this, {
@@ -5622,7 +5654,7 @@ var init_install_fetch = __esm({
 								return (name) => {
 									validateHeaderName(name);
 									return URLSearchParams.prototype[p].call(target, String(name).toLowerCase());
-								};
+								}
 							case 'keys':
 								return () => {
 									target.sort();
@@ -5632,7 +5664,7 @@ var init_install_fetch = __esm({
 								return Reflect.get(target, p, receiver);
 						}
 					}
-				});
+				})
 			}
 
 			get [Symbol.toStringTag]() {
@@ -5681,7 +5713,7 @@ var init_install_fetch = __esm({
 				return [...this.keys()].reduce((result, key) => {
 					result[key] = this.getAll(key);
 					return result;
-				}, {});
+				}, {})
 			}
 
 			[Symbol.for('nodejs.util.inspect.custom')]() {
@@ -5689,13 +5721,14 @@ var init_install_fetch = __esm({
 					const values = this.getAll(key);
 					if (key === 'host') {
 						result[key] = values[0];
-					} else {
+					}
+					else {
 						result[key] = values.length > 1 ? values : values[0];
 					}
 					return result;
-				}, {});
+				}, {})
 			}
-		};
+		}
 		Object.defineProperties(
 			Headers.prototype,
 			['get', 'entries', 'forEach', 'values'].reduce((result, property) => {
@@ -5727,7 +5760,7 @@ var init_install_fetch = __esm({
 					headers,
 					counter: options2.counter,
 					highWaterMark: options2.highWaterMark
-				};
+				}
 			}
 
 			get type() {
@@ -5775,7 +5808,7 @@ var init_install_fetch = __esm({
 						location: new URL(url).toString()
 					},
 					status
-				});
+				})
 			}
 
 			static error() {
@@ -5794,9 +5827,9 @@ var init_install_fetch = __esm({
 					ok: this.ok,
 					redirected: this.redirected,
 					size: this.size
-				});
+				})
 			}
-		};
+		}
 		Object.defineProperties(Response.prototype, {
 			type: { enumerable: true },
 			url: { enumerable: true },
@@ -5806,7 +5839,7 @@ var init_install_fetch = __esm({
 			statusText: { enumerable: true },
 			headers: { enumerable: true },
 			clone: { enumerable: true }
-		});
+		})
 		getSearch = (parsedURL) => {
 			if (parsedURL.search) {
 				return parsedURL.search;
@@ -5824,7 +5857,8 @@ var init_install_fetch = __esm({
 				let parsedURL;
 				if (isRequest(input)) {
 					parsedURL = new URL(input.url);
-				} else {
+				}
+				else {
 					parsedURL = new URL(input);
 					input = {};
 				}
@@ -5840,8 +5874,8 @@ var init_install_fetch = __esm({
 				const inputBody = init2.body
 					? init2.body
 					: isRequest(input) && input.body !== null
-					? clone(input)
-					: null;
+						? clone(input)
+						: null;
 				super(inputBody, {
 					size: init2.size || input.size || 0
 				});
@@ -5865,7 +5899,7 @@ var init_install_fetch = __esm({
 					headers,
 					parsedURL,
 					signal
-				};
+				}
 				this.follow =
 					init2.follow === void 0 ? (input.follow === void 0 ? 20 : input.follow) : init2.follow;
 				this.compress =
@@ -5907,7 +5941,7 @@ var init_install_fetch = __esm({
 			clone() {
 				return new Request(this);
 			}
-		};
+		}
 		Object.defineProperties(Request.prototype, {
 			method: { enumerable: true },
 			url: { enumerable: true },
@@ -5915,7 +5949,7 @@ var init_install_fetch = __esm({
 			redirect: { enumerable: true },
 			clone: { enumerable: true },
 			signal: { enumerable: true }
-		});
+		})
 		getNodeRequestOptions = (request) => {
 			const { parsedURL } = request[INTERNALS];
 			const headers = new Headers(request[INTERNALS].headers);
@@ -5965,7 +5999,7 @@ var init_install_fetch = __esm({
 				agent
 			};
 			return requestOptions;
-		};
+		}
 		AbortError = class extends FetchBaseError {
 			constructor(message, type = 'aborted') {
 				super(message, type);
@@ -5973,20 +6007,20 @@ var init_install_fetch = __esm({
 		};
 		supportedSchemas = new Set(['data:', 'http:', 'https:']);
 	}
-});
+})
 
 // node_modules/.pnpm/@sveltejs+adapter-netlify@1.0.0-next.35/node_modules/@sveltejs/adapter-netlify/files/shims.js
 var init_shims = __esm({
 	'node_modules/.pnpm/@sveltejs+adapter-netlify@1.0.0-next.35/node_modules/@sveltejs/adapter-netlify/files/shims.js'() {
 		init_install_fetch();
 	}
-});
+})
 
 // node_modules/.pnpm/cookie@0.4.1/node_modules/cookie/index.js
 var require_cookie = __commonJS({
 	'node_modules/.pnpm/cookie@0.4.1/node_modules/cookie/index.js'(exports) {
-		init_shims();
-		('use strict');
+		init_shims()
+		;('use strict');
 		exports.parse = parse;
 		exports.serialize = serialize;
 		var decode = decodeURIComponent;
@@ -6090,18 +6124,19 @@ var require_cookie = __commonJS({
 		function tryDecode(str, decode2) {
 			try {
 				return decode2(str);
-			} catch (e) {
+			}
+			catch (e) {
 				return str;
 			}
 		}
 	}
-});
+})
 
 // node_modules/.pnpm/@lukeed+uuid@2.0.0/node_modules/@lukeed/uuid/dist/index.mjs
 function v4() {
 	var i = 0,
 		num,
-		out = '';
+		out = ''
 	if (!BUFFER || IDX + 16 > 256) {
 		BUFFER = Array((i = 256));
 		while (i--) {
@@ -6113,9 +6148,11 @@ function v4() {
 		num = BUFFER[IDX + i];
 		if (i == 6) {
 			out += HEX[(num & 15) | 64];
-		} else if (i == 8) {
+		}
+		else if (i == 8) {
 			out += HEX[(num & 63) | 128];
-		} else {
+		}
+		else {
 			out += HEX[num];
 		}
 		if (i & 1 && i > 1 && i < 11) {
@@ -6143,25 +6180,25 @@ async function api(request, resource, data) {
 	if (!request.locals.userid) {
 		return { status: 401 };
 	}
-	const res = await fetch(`${base}/${resource}`, {
+	const res = await fetch(`${ base }/${ resource }`, {
 		method: request.method,
 		headers: {
 			'content-type': 'application/json'
 		},
 		body: data && JSON.stringify(data)
-	});
+	})
 	if (res.ok && request.method !== 'GET' && request.headers.accept !== 'application/json') {
 		return {
 			status: 303,
 			headers: {
 				location: '/todos'
 			}
-		};
+		}
 	}
 	return {
 		status: res.status,
 		body: await res.json()
-	};
+	}
 }
 
 var base;
@@ -6184,14 +6221,14 @@ var init_index_json_784727b1 = __esm({
 		init_shims();
 		init_api_e66b1c82();
 		get = async (request) => {
-			const response = await api(request, `todos/${request.locals.userid}`);
+			const response = await api(request, `todos/${ request.locals.userid }`);
 			if (response.status === 404) {
 				return { body: [] };
 			}
 			return response;
 		};
 		post = async (request) => {
-			const response = await api(request, `todos/${request.locals.userid}`, {
+			const response = await api(request, `todos/${ request.locals.userid }`, {
 				text: request.body.get('text')
 			});
 			return response;
@@ -6211,13 +6248,13 @@ var init_uid_json_01bf21e4 = __esm({
 		init_shims();
 		init_api_e66b1c82();
 		patch = async (request) => {
-			return api(request, `todos/${request.locals.userid}/${request.params.uid}`, {
+			return api(request, `todos/${ request.locals.userid }/${ request.params.uid }`, {
 				text: request.body.get('text'),
 				done: request.body.has('done') ? !!request.body.get('done') : void 0
 			});
 		};
 		del = async (request) => {
-			return api(request, `todos/${request.locals.userid}/${request.params.uid}`);
+			return api(request, `todos/${ request.locals.userid }/${ request.params.uid }`);
 		};
 	}
 });
@@ -6260,7 +6297,7 @@ var init_layout_99c89b2c = __esm({
 		};
 		logo = '/_app/assets/svelte-logo-adbe18bb.svg';
 		css$1 = {
-			code: "header.svelte-5dwhfv.svelte-5dwhfv{display:flex;justify-content:space-between}.corner.svelte-5dwhfv.svelte-5dwhfv{width:3em;height:3em}.corner.svelte-5dwhfv a.svelte-5dwhfv{display:flex;align-items:center;justify-content:center;width:100%;height:100%}.corner.svelte-5dwhfv img.svelte-5dwhfv{width:2em;height:2em;object-fit:contain}nav.svelte-5dwhfv.svelte-5dwhfv{display:flex;justify-content:center;--background:rgba(255, 255, 255, 0.7)}svg.svelte-5dwhfv.svelte-5dwhfv{width:2em;height:3em;display:block}path.svelte-5dwhfv.svelte-5dwhfv{fill:var(--background)}ul.svelte-5dwhfv.svelte-5dwhfv{position:relative;padding:0;margin:0;height:3em;display:flex;justify-content:center;align-items:center;list-style:none;background:var(--background);background-size:contain}li.svelte-5dwhfv.svelte-5dwhfv{position:relative;height:100%}li.active.svelte-5dwhfv.svelte-5dwhfv::before{--size:6px;content:'';width:0;height:0;position:absolute;top:0;left:calc(50% - var(--size));border:var(--size) solid transparent;border-top:var(--size) solid var(--accent-color)}nav.svelte-5dwhfv a.svelte-5dwhfv{display:flex;height:100%;align-items:center;padding:0 1em;color:var(--heading-color);font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;transition:color 0.2s linear}a.svelte-5dwhfv.svelte-5dwhfv:hover{color:var(--accent-color)}",
+			code: 'header.svelte-5dwhfv.svelte-5dwhfv{display:flex;justify-content:space-between}.corner.svelte-5dwhfv.svelte-5dwhfv{width:3em;height:3em}.corner.svelte-5dwhfv a.svelte-5dwhfv{display:flex;align-items:center;justify-content:center;width:100%;height:100%}.corner.svelte-5dwhfv img.svelte-5dwhfv{width:2em;height:2em;object-fit:contain}nav.svelte-5dwhfv.svelte-5dwhfv{display:flex;justify-content:center;--background:rgba(255, 255, 255, 0.7)}svg.svelte-5dwhfv.svelte-5dwhfv{width:2em;height:3em;display:block}path.svelte-5dwhfv.svelte-5dwhfv{fill:var(--background)}ul.svelte-5dwhfv.svelte-5dwhfv{position:relative;padding:0;margin:0;height:3em;display:flex;justify-content:center;align-items:center;list-style:none;background:var(--background);background-size:contain}li.svelte-5dwhfv.svelte-5dwhfv{position:relative;height:100%}li.active.svelte-5dwhfv.svelte-5dwhfv::before{--size:6px;content:\'\';width:0;height:0;position:absolute;top:0;left:calc(50% - var(--size));border:var(--size) solid transparent;border-top:var(--size) solid var(--accent-color)}nav.svelte-5dwhfv a.svelte-5dwhfv{display:flex;height:100%;align-items:center;padding:0 1em;color:var(--heading-color);font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;text-decoration:none;transition:color 0.2s linear}a.svelte-5dwhfv.svelte-5dwhfv:hover{color:var(--accent-color)}',
 			map: null
 		};
 		Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -6268,52 +6305,52 @@ var init_layout_99c89b2c = __esm({
 			$$unsubscribe_page = subscribe(page, (value) => ($page = value));
 			$$result.css.add(css$1);
 			$$unsubscribe_page();
-			return `<header class='${'svelte-5dwhfv'}'><div class='${'corner svelte-5dwhfv'}'><a href='${'https://kit.svelte.dev'}' class='${'svelte-5dwhfv'}'><img alt='${'SvelteKit'}'${add_attribute(
+			return `<header class='${ 'svelte-5dwhfv' }'><div class='${ 'corner svelte-5dwhfv' }'><a href='${ 'https://kit.svelte.dev' }' class='${ 'svelte-5dwhfv' }'><img alt='${ 'SvelteKit' }'${ add_attribute(
 				'src',
 				logo,
 				0
-			)} class='${'svelte-5dwhfv'}'></a></div>
+			) } class='${ 'svelte-5dwhfv' }'></a></div>
 
-  <nav class='${'svelte-5dwhfv'}'><svg aria-hidden='${'true'}' viewBox='${'0 0 2 3'}' class='${'svelte-5dwhfv'}'><path d='${'M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z'}' class='${'svelte-5dwhfv'}'></path></svg>
-    <ul class='${'svelte-5dwhfv'}'><li class='${[
+  <nav class='${ 'svelte-5dwhfv' }'><svg aria-hidden='${ 'true' }' viewBox='${ '0 0 2 3' }' class='${ 'svelte-5dwhfv' }'><path d='${ 'M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z' }' class='${ 'svelte-5dwhfv' }'></path></svg>
+    <ul class='${ 'svelte-5dwhfv' }'><li class='${ [
 				'svelte-5dwhfv',
 				$page.path === '/' ? 'active' : ''
 			]
 				.join(' ')
-				.trim()}'><a href='${'/'}' sveltekit:prefetch class='${'svelte-5dwhfv'}'>Home</a></li>
-      <li class='${['svelte-5dwhfv', $page.path === '/about' ? 'active' : '']
+				.trim() }'><a href='${ '/' }' sveltekit:prefetch class='${ 'svelte-5dwhfv' }'>Home</a></li>
+      <li class='${ ['svelte-5dwhfv', $page.path === '/about' ? 'active' : '']
 				.join(' ')
-				.trim()}'><a href='${'/about'}' sveltekit:prefetch class='${'svelte-5dwhfv'}'>About</a></li>
-      <li class='${['svelte-5dwhfv', $page.path === '/todos' ? 'active' : '']
+				.trim() }'><a href='${ '/about' }' sveltekit:prefetch class='${ 'svelte-5dwhfv' }'>About</a></li>
+      <li class='${ ['svelte-5dwhfv', $page.path === '/todos' ? 'active' : '']
 				.join(' ')
-				.trim()}'><a href='${'/todos'}' sveltekit:prefetch class='${'svelte-5dwhfv'}'>Todos</a></li></ul>
-    <svg aria-hidden='${'true'}' viewBox='${'0 0 2 3'}' class='${'svelte-5dwhfv'}'><path d='${'M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z'}' class='${'svelte-5dwhfv'}'></path></svg></nav>
+				.trim() }'><a href='${ '/todos' }' sveltekit:prefetch class='${ 'svelte-5dwhfv' }'>Todos</a></li></ul>
+    <svg aria-hidden='${ 'true' }' viewBox='${ '0 0 2 3' }' class='${ 'svelte-5dwhfv' }'><path d='${ 'M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z' }' class='${ 'svelte-5dwhfv' }'></path></svg></nav>
 
-  <div class='${'corner svelte-5dwhfv'}'></div>
-</header>`;
-		});
+  <div class='${ 'corner svelte-5dwhfv' }'></div>
+</header>`
+		})
 		css = {
 			code: 'main.svelte-15mtgr3.svelte-15mtgr3{flex:1;display:flex;flex-direction:column;padding:1rem;width:100%;max-width:1024px;margin:0 auto;box-sizing:border-box}footer.svelte-15mtgr3.svelte-15mtgr3{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px}footer.svelte-15mtgr3 a.svelte-15mtgr3{font-weight:bold}@media(min-width: 480px){footer.svelte-15mtgr3.svelte-15mtgr3{padding:40px 0}}',
 			map: null
-		};
+		}
 		_layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 			$$result.css.add(css);
-			return `${validate_component(Header, 'Header').$$render($$result, {}, {}, {})}
+			return `${ validate_component(Header, 'Header').$$render($$result, {}, {}, {}) }
 
-<main class='${'svelte-15mtgr3'}'>${slots.default ? slots.default({}) : ``}</main>
+<main class='${ 'svelte-15mtgr3' }'>${ slots.default ? slots.default({}) : `` }</main>
 
-<footer class='${'svelte-15mtgr3'}'><p>visit <a href='${'https://kit.svelte.dev'}' class='${'svelte-15mtgr3'}'>kit.svelte.dev</a> to learn SvelteKit</p>
+<footer class='${ 'svelte-15mtgr3' }'><p>visit <a href='${ 'https://kit.svelte.dev' }' class='${ 'svelte-15mtgr3' }'>kit.svelte.dev</a> to learn SvelteKit</p>
 </footer>`;
 		});
 	}
-});
+})
 
 // .svelte-kit/output/server/chunks/error-9b602ab7.js
 var error_9b602ab7_exports = {};
 __export(error_9b602ab7_exports, {
 	default: () => Error2,
 	load: () => load
-});
+})
 
 function load({ error: error2, status }) {
 	return { props: { error: error2, status } };
@@ -6335,14 +6372,14 @@ var init_error_9b602ab7 = __esm({
 			if ($$props.error === void 0 && $$bindings.error && error2 !== void 0) {
 				$$bindings.error(error2);
 			}
-			return `<h1>${escape(status)}</h1>
+			return `<h1>${ escape(status) }</h1>
 
-<pre>${escape(error2.message)}</pre>
+<pre>${ escape(error2.message) }</pre>
 
 
 
-${error2.frame ? `<pre>${escape(error2.frame)}</pre>` : ``}
-${error2.stack ? `<pre>${escape(error2.stack)}</pre>` : ``}`;
+${ error2.frame ? `<pre>${ escape(error2.frame) }</pre>` : `` }
+${ error2.stack ? `<pre>${ escape(error2.stack) }</pre>` : `` }`;
 		});
 	}
 });
@@ -6352,7 +6389,7 @@ var index_11fb3df1_exports = {};
 __export(index_11fb3df1_exports, {
 	default: () => Routes,
 	prerender: () => prerender
-});
+})
 
 function writable(value, start = noop) {
 	let stop;
@@ -6394,7 +6431,7 @@ function writable(value, start = noop) {
 				stop();
 				stop = null;
 			}
-		};
+		}
 	}
 
 	return { set, update, subscribe: subscribe2 };
@@ -6414,14 +6451,15 @@ function tick_spring(ctx, last_value, current_value, target_value) {
 		const d2 = (velocity + acceleration) * ctx.dt;
 		if (Math.abs(d2) < ctx.opts.precision && Math.abs(delta) < ctx.opts.precision) {
 			return target_value;
-		} else {
+		}
+		else {
 			ctx.settled = false;
 			return is_date(current_value) ? new Date(current_value.getTime() + d2) : current_value + d2;
 		}
 	} else if (Array.isArray(current_value)) {
 		return current_value.map((_, i) =>
 			tick_spring(ctx, last_value[i], current_value[i], target_value[i])
-		);
+		)
 	} else if (typeof current_value === 'object') {
 		const next_value = {};
 		for (const k in current_value) {
@@ -6429,7 +6467,7 @@ function tick_spring(ctx, last_value, current_value, target_value) {
 		}
 		return next_value;
 	} else {
-		throw new Error(`Cannot spring ${typeof current_value} values`);
+		throw new Error(`Cannot spring ${ typeof current_value } values`);
 	}
 }
 
@@ -6454,7 +6492,8 @@ function spring(value, opts = {}) {
 			last_value = new_value;
 			store.set((value = target_value));
 			return Promise.resolve();
-		} else if (opts2.soft) {
+		}
+		else if (opts2.soft) {
 			const rate = opts2.soft === true ? 0.5 : +opts2.soft;
 			inv_mass_recovery_rate = 1 / (rate * 60);
 			inv_mass = 0;
@@ -6491,7 +6530,7 @@ function spring(value, opts = {}) {
 					fulfil();
 				}
 			});
-		});
+		})
 	}
 
 	const spring2 = {
@@ -6536,20 +6575,20 @@ var init_index_11fb3df1 = __esm({
 			}
 			offset = modulo($displayed_count, 1);
 			$$unsubscribe_displayed_count();
-			return `<div class='${'counter svelte-18fdd0i'}'><button aria-label='${'Decrease the counter by one'}' class='${'svelte-18fdd0i'}'><svg aria-hidden='${'true'}' viewBox='${'0 0 1 1'}' class='${'svelte-18fdd0i'}'><path d='${'M0,0.5 L1,0.5'}' class='${'svelte-18fdd0i'}'></path></svg></button>
+			return `<div class='${ 'counter svelte-18fdd0i' }'><button aria-label='${ 'Decrease the counter by one' }' class='${ 'svelte-18fdd0i' }'><svg aria-hidden='${ 'true' }' viewBox='${ '0 0 1 1' }' class='${ 'svelte-18fdd0i' }'><path d='${ 'M0,0.5 L1,0.5' }' class='${ 'svelte-18fdd0i' }'></path></svg></button>
 
-  <div class='${'counter-viewport svelte-18fdd0i'}'><div class='${'counter-digits svelte-18fdd0i'}'${add_attribute(
+  <div class='${ 'counter-viewport svelte-18fdd0i' }'><div class='${ 'counter-digits svelte-18fdd0i' }'${ add_attribute(
 				'style',
-				`transform: translate(0, ${100 * offset}%)`,
+				`transform: translate(0, ${ 100 * offset }%)`,
 				0
-			)}><strong aria-hidden='${'true'}' style='${'top: -100%'}' class='${'svelte-18fdd0i'}'>${escape(
+			) }><strong aria-hidden='${ 'true' }' style='${ 'top: -100%' }' class='${ 'svelte-18fdd0i' }'>${ escape(
 				Math.floor($displayed_count + 1)
-			)}</strong>
-      <strong class='${'svelte-18fdd0i'}'>${escape(
+			) }</strong>
+      <strong class='${ 'svelte-18fdd0i' }'>${ escape(
 				Math.floor($displayed_count)
-			)}</strong></div></div>
+			) }</strong></div></div>
 
-  <button aria-label='${'Increase the counter by one'}' class='${'svelte-18fdd0i'}'><svg aria-hidden='${'true'}' viewBox='${'0 0 1 1'}' class='${'svelte-18fdd0i'}'><path d='${'M0,0.5 L1,0.5 M0.5,0 L0.5,1'}' class='${'svelte-18fdd0i'}'></path></svg></button>
+  <button aria-label='${ 'Increase the counter by one' }' class='${ 'svelte-18fdd0i' }'><svg aria-hidden='${ 'true' }' viewBox='${ '0 0 1 1' }' class='${ 'svelte-18fdd0i' }'><path d='${ 'M0,0.5 L1,0.5 M0.5,0 L0.5,1' }' class='${ 'svelte-18fdd0i' }'></path></svg></button>
 </div>`;
 		});
 		css2 = {
@@ -6559,17 +6598,17 @@ var init_index_11fb3df1 = __esm({
 		prerender = true;
 		Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 			$$result.css.add(css2);
-			return `${(($$result.head += `${(($$result.title = `<title>Home</title>`), '')}`), '')}
+			return `${ (($$result.head += `${ (($$result.title = `<title>Home</title>`), '') }`), '') }
 
-<section class='${'svelte-teshqs'}'><h1 class='${'svelte-teshqs'}'><picture><source srcset='${'svelte-welcome.webp'}' type='${'image/webp'}'>
-      <img alt='${'Welcome'}' class='${'welcome svelte-teshqs'}' src='${'svelte-welcome.png'}'></picture>
+<section class='${ 'svelte-teshqs' }'><h1 class='${ 'svelte-teshqs' }'><picture><source srcset='${ 'svelte-welcome.webp' }' type='${ 'image/webp' }'>
+      <img alt='${ 'Welcome' }' class='${ 'welcome svelte-teshqs' }' src='${ 'svelte-welcome.png' }'></picture>
 
     to your new<br>SvelteKit app
   </h1>
 
   <h2>try editing <strong>src/routes/index.svelte</strong></h2>
 
-  ${validate_component(Counter, 'Counter').$$render($$result, {}, {}, {})}
+  ${ validate_component(Counter, 'Counter').$$render($$result, {}, {}, {}) }
 </section>`;
 		});
 	}
@@ -6601,11 +6640,11 @@ var init_about_2076347a = __esm({
 		prerender2 = true;
 		About = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 			$$result.css.add(css3);
-			return `${(($$result.head += `${(($$result.title = `<title>About</title>`), '')}`), '')}
+			return `${ (($$result.head += `${ (($$result.title = `<title>About</title>`), '') }`), '') }
 
-<div class='${'content svelte-o8wj98'}'><h1>About this app</h1>
+<div class='${ 'content svelte-o8wj98' }'><h1>About this app</h1>
 
-  <p>This is a <a href='${'https://kit.svelte.dev'}'>SvelteKit</a> app. You can make your own by typing the
+  <p>This is a <a href='${ 'https://kit.svelte.dev' }'>SvelteKit</a> app. You can make your own by typing the
     following into your command line and following the prompts:
   </p>
 
@@ -6617,13 +6656,13 @@ var init_about_2076347a = __esm({
     the devtools network panel and reloading.
   </p>
 
-  <p>The <a href='${'/todos'}'>TODOs</a> page illustrates SvelteKit&#39;s data loading and form handling. Try using
+  <p>The <a href='${ '/todos' }'>TODOs</a> page illustrates SvelteKit&#39;s data loading and form handling. Try using
     it with JavaScript disabled!
   </p>
-</div>`;
-		});
+</div>`
+		})
 	}
-});
+})
 
 // .svelte-kit/output/server/chunks/index-be7c3ccc.js
 var index_be7c3ccc_exports = {};
@@ -6684,20 +6723,20 @@ var init_index_be7c3ccc = __esm({
 			'value',
 			todo.text,
 			0
-		)} class='${'svelte-1juz249'}'>
-        <button class='${'save svelte-1juz249'}' aria-label='${'Save todo'}'></button></form>
+		) } class='${ 'svelte-1juz249' }'>
+        <button class='${ 'save svelte-1juz249' }' aria-label='${ 'Save todo' }'></button></form>
 
       <form action='${
-				'/todos/' + escape(todo.uid) + '.json?_method=delete'
-			}' method='${'post'}'><button class='${'delete svelte-1juz249'}' aria-label='${'Delete todo'}' ${
+			'/todos/' + escape(todo.uid) + '.json?_method=delete'
+		}' method='${ 'post' }'><button class='${ 'delete svelte-1juz249' }' aria-label='${ 'Delete todo' }' ${
 			todo.pending_delete ? 'disabled' : ''
 		}></button></form>
     </div>`
-	)}
-</div>`;
-		});
+			) }
+</div>`
+		})
 	}
-});
+})
 
 // .svelte-kit/output/server/chunks/app-f3985139.js
 function get_single_valued_header(headers, key) {
@@ -6709,7 +6748,7 @@ function get_single_valued_header(headers, key) {
 		if (value.length > 1) {
 			throw new Error(
 				`Multiple headers provided for ${key}. Multiple may be provided only for set-cookie`
-			);
+			)
 		}
 		return value[0];
 	}
@@ -6719,7 +6758,7 @@ function get_single_valued_header(headers, key) {
 function coalesce_to_error(err) {
 	return err instanceof Error || (err && err.name && err.message)
 		? err
-		: new Error(JSON.stringify(err));
+		: new Error(JSON.stringify(err))
 }
 
 function lowercase_keys(obj) {
@@ -6735,7 +6774,7 @@ function error(body) {
 		status: 500,
 		body,
 		headers: {}
-	};
+	}
 }
 
 function is_string(s2) {
@@ -6752,7 +6791,7 @@ function is_content_type_textual(content_type) {
 		type === 'application/json' ||
 		type === 'application/x-www-form-urlencoded' ||
 		type === 'multipart/form-data'
-	);
+	)
 }
 
 async function render_endpoint(request, route, match) {
@@ -6763,12 +6802,12 @@ async function render_endpoint(request, route, match) {
 	}
 	const params = route.params(match);
 	const response = await handler2({ ...request, params });
-	const preface = `Invalid response from route ${request.path}`;
+	const preface = `Invalid response from route ${ request.path }`;
 	if (!response) {
 		return;
 	}
 	if (typeof response !== 'object') {
-		return error(`${preface}: expected an object, got ${typeof response}`);
+		return error(`${ preface }: expected an object, got ${ typeof response }`);
 	}
 	let { status = 200, body, headers = {} } = response;
 	headers = lowercase_keys(headers);
@@ -6776,7 +6815,7 @@ async function render_endpoint(request, route, match) {
 	const is_type_textual = is_content_type_textual(type);
 	if (!is_type_textual && !(body instanceof Uint8Array || is_string(body))) {
 		return error(
-			`${preface}: body must be an instance of string or Uint8Array if content-type is not a supported textual content-type`
+			`${ preface }: body must be an instance of string or Uint8Array if content-type is not a supported textual content-type`
 		);
 	}
 	let normalized_body;
@@ -6833,7 +6872,7 @@ function devalue(value) {
 					if (Object.getOwnPropertySymbols(thing).length > 0) {
 						throw new Error('Cannot stringify POJOs with symbolic keys');
 					}
-					Object.keys(thing).forEach(function (key) {
+					Object.keys(thing).forEach(function(key) {
 						return walk(thing[key]);
 					});
 			}
@@ -6843,13 +6882,13 @@ function devalue(value) {
 	walk(value);
 	var names = new Map();
 	Array.from(counts)
-		.filter(function (entry) {
+		.filter(function(entry) {
 			return entry[1] > 1;
 		})
-		.sort(function (a, b) {
+		.sort(function(a, b) {
 			return b[1] - a[1];
 		})
-		.forEach(function (entry, i) {
+		.forEach(function(entry, i) {
 			names.set(entry[0], getName(i));
 		});
 
@@ -6871,7 +6910,7 @@ function devalue(value) {
 			case 'Date':
 				return 'new Date(' + thing.getTime() + ')';
 			case 'Array':
-				var members = thing.map(function (v, i) {
+				var members = thing.map(function(v, i) {
 					return i in thing ? stringify(v) : '';
 				});
 				var tail = thing.length === 0 || thing.length - 1 in thing ? '' : ',';
@@ -6883,7 +6922,7 @@ function devalue(value) {
 				var obj =
 					'{' +
 					Object.keys(thing)
-						.map(function (key) {
+						.map(function(key) {
 							return safeKey(key) + ':' + stringify(thing[key]);
 						})
 						.join(',') +
@@ -6903,7 +6942,7 @@ function devalue(value) {
 		var params_1 = [];
 		var statements_1 = [];
 		var values_1 = [];
-		names.forEach(function (name, thing) {
+		names.forEach(function(name, thing) {
 			params_1.push(name);
 			if (isPrimitive(thing)) {
 				values_1.push(stringifyPrimitive(thing));
@@ -6924,7 +6963,7 @@ function devalue(value) {
 					break;
 				case 'Array':
 					values_1.push('Array(' + thing.length + ')');
-					thing.forEach(function (v, i) {
+					thing.forEach(function(v, i) {
 						statements_1.push(name + '[' + i + ']=' + stringify(v));
 					});
 					break;
@@ -6932,31 +6971,31 @@ function devalue(value) {
 					values_1.push('new Set');
 					statements_1.push(
 						name +
-							'.' +
-							Array.from(thing)
-								.map(function (v) {
-									return 'add(' + stringify(v) + ')';
-								})
-								.join('.')
+						'.' +
+						Array.from(thing)
+							.map(function(v) {
+								return 'add(' + stringify(v) + ')';
+							})
+							.join('.')
 					);
 					break;
 				case 'Map':
 					values_1.push('new Map');
 					statements_1.push(
 						name +
-							'.' +
-							Array.from(thing)
-								.map(function (_a) {
-									var k = _a[0],
-										v = _a[1];
-									return 'set(' + stringify(k) + ', ' + stringify(v) + ')';
-								})
-								.join('.')
+						'.' +
+						Array.from(thing)
+							.map(function(_a) {
+								var k = _a[0],
+									v = _a[1];
+								return 'set(' + stringify(k) + ', ' + stringify(v) + ')';
+							})
+							.join('.')
 					);
 					break;
 				default:
 					values_1.push(Object.getPrototypeOf(thing) === null ? 'Object.create(null)' : '{}');
-					Object.keys(thing).forEach(function (key) {
+					Object.keys(thing).forEach(function(key) {
 						statements_1.push('' + name + safeProp(key) + '=' + stringify(thing[key]));
 					});
 			}
@@ -7025,7 +7064,7 @@ function safeKey(key) {
 function safeProp(key) {
 	return /^[_$a-zA-Z][_$a-zA-Z0-9]*$/.test(key)
 		? '.' + key
-		: '[' + escapeUnsafeChars(JSON.stringify(key)) + ']';
+		: '[' + escapeUnsafeChars(JSON.stringify(key)) + ']'
 }
 
 function stringifyString(str) {
@@ -7035,16 +7074,20 @@ function stringifyString(str) {
 		var code = char.charCodeAt(0);
 		if (char === '"') {
 			result += '\\"';
-		} else if (char in escaped$1) {
+		}
+		else if (char in escaped$1) {
 			result += escaped$1[char];
-		} else if (code >= 55296 && code <= 57343) {
+		}
+		else if (code >= 55296 && code <= 57343) {
 			var next = str.charCodeAt(i + 1);
 			if (code <= 56319 && next >= 56320 && next <= 57343) {
 				result += char + str[++i];
-			} else {
+			}
+			else {
 				result += '\\u' + code.toString(16).toUpperCase();
 			}
-		} else {
+		}
+		else {
 			result += char;
 		}
 	}
@@ -7098,7 +7141,7 @@ function writable2(value, start = noop$1) {
 				stop();
 				stop = null;
 			}
-		};
+		}
 	}
 
 	return { set, update, subscribe: subscribe2 };
@@ -7111,7 +7154,8 @@ function hash(value) {
 		while (i) {
 			hash2 = (hash2 * 33) ^ value.charCodeAt(--i);
 		}
-	} else {
+	}
+	else {
 		while (i) {
 			hash2 = (hash2 * 33) ^ value[--i];
 		}
@@ -7124,11 +7168,11 @@ function escape_json_string_in_html(str) {
 		str,
 		escape_json_string_in_html_dict,
 		(code) => `\\u${code.toString(16).toUpperCase()}`
-	);
+	)
 }
 
 function escape_html_attr(str) {
-	return '"' + escape$1(str, escape_html_attr_dict, (code) => `&#${code};`) + '"';
+	return '"' + escape$1(str, escape_html_attr_dict, (code) => `&#${ code };`) + '"';
 }
 
 function escape$1(str, dict, unicode_encoder) {
@@ -7138,14 +7182,17 @@ function escape$1(str, dict, unicode_encoder) {
 		const code = char.charCodeAt(0);
 		if (char in dict) {
 			result += dict[char];
-		} else if (code >= 55296 && code <= 57343) {
+		}
+		else if (code >= 55296 && code <= 57343) {
 			const next = str.charCodeAt(i + 1);
 			if (code <= 56319 && next >= 56320 && next <= 57343) {
 				result += char + str[++i];
-			} else {
+			}
+			else {
 				result += unicode_encoder(code);
 			}
-		} else {
+		}
+		else {
 			result += char;
 		}
 	}
@@ -7189,7 +7236,7 @@ async function render_response({
 				is_private = true;
 			}
 			maxage = loaded.maxage;
-		});
+		})
 		const session = writable2($session);
 		const props = {
 			stores: {
@@ -7201,7 +7248,7 @@ async function render_response({
 			components: branch.map(({ node }) => node.module.default)
 		};
 		for (let i = 0; i < branch.length; i += 1) {
-			props[`props_${i}`] = await branch[i].loaded.props;
+			props[`props_${ i }`] = await branch[i].loaded.props;
 		}
 		let session_tracking_active = false;
 		const unsubscribe = session.subscribe(() => {
@@ -7212,7 +7259,8 @@ async function render_response({
 		session_tracking_active = true;
 		try {
 			rendered = options2.root.render(props);
-		} finally {
+		}
+		finally {
 			unsubscribe();
 		}
 	} else {
@@ -7224,26 +7272,27 @@ async function render_response({
 	}
 	const links = options2.amp
 		? styles.size > 0 || rendered.css.code.length > 0
-			? `<style amp-custom>${Array.from(styles).concat(rendered.css.code).join('\n')}</style>`
+			? `<style amp-custom>${ Array.from(styles).concat(rendered.css.code).join('\n') }</style>`
 			: ''
 		: [
-				...Array.from(js).map((dep) => `<link rel='modulepreload' href='${dep}'>`),
-				...Array.from(css22).map((dep) => `<link rel='stylesheet' href='${dep}'>`)
-		  ].join('\n		');
+			...Array.from(js).map((dep) => `<link rel='modulepreload' href='${ dep }'>`),
+			...Array.from(css22).map((dep) => `<link rel='stylesheet' href='${ dep }'>`)
+		].join('\n		');
 	let init2 = '';
 	if (options2.amp) {
 		init2 = `
 		<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
 		<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 		<script async src='https://cdn.ampproject.org/v0.js'><\/script>`;
-	} else if (include_js) {
+	}
+	else if (include_js) {
 		init2 = `<script type='module'>
-			import { start } from ${s$1(options2.entry.file)};
+			import { start } from ${ s$1(options2.entry.file) };
 			start({
-				target: ${options2.target ? `document.querySelector(${s$1(options2.target)})` : 'document.body'},
+				target: ${ options2.target ? `document.querySelector(${ s$1(options2.target) })` : 'document.body' },
 				paths: ${s$1(options2.paths)},
 				session: ${try_serialize($session, (error3) => {
-					throw new Error(`Failed to serialize session data: ${error3.message}`);
+			throw new Error(`Failed to serialize session data: ${ error3.message }`);
 				})},
 				host: ${page2 && page2.host ? s$1(page2.host) : 'location.host'},
 				route: ${!!page_config.router},
@@ -7262,7 +7311,7 @@ async function render_response({
 						path: ${
 							page2 && page2.path
 								? try_serialize(page2.path, (error3) => {
-										throw new Error(`Failed to serialize page.path: ${error3.message}`);
+									throw new Error(`Failed to serialize page.path: ${ error3.message }`);
 								  })
 								: null
 						},
@@ -7270,53 +7319,53 @@ async function render_response({
 						params: ${
 							page2 && page2.params
 								? try_serialize(page2.params, (error3) => {
-										throw new Error(`Failed to serialize page.params: ${error3.message}`);
-								  })
+									throw new Error(`Failed to serialize page.params: ${ error3.message }`);
+								})
 								: null
 						}
 					}
 				}`
 						: 'null'
-				}
+		}
 			});
-		<\/script>`;
+		<\/script>`
 	}
 	if (options2.service_worker) {
 		init2 += `<script>
 			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('${options2.service_worker}');
+				navigator.serviceWorker.register('${ options2.service_worker }');
 			}
-		<\/script>`;
+		<\/script>`
 	}
 	const head = [
 		rendered.head,
 		styles.size && !options2.amp
-			? `<style data-svelte>${Array.from(styles).join('\n')}</style>`
+			? `<style data-svelte>${ Array.from(styles).join('\n') }</style>`
 			: '',
 		links,
 		init2
-	].join('\n\n		');
+	].join('\n\n		')
 	const body = options2.amp
 		? rendered.html
 		: `${rendered.html}
 
 			${serialized_data
 				.map(({ url, body: body2, json }) => {
-					let attributes = `type="application/json" data-type="svelte-data" data-url=${escape_html_attr(
+					let attributes = `type="application/json" data-type="svelte-data" data-url=${ escape_html_attr(
 						url
-					)}`;
+					) }`
 					if (body2) {
-						attributes += ` data-body="${hash(body2)}"`;
+						attributes += ` data-body="${ hash(body2) }"`;
 					}
-					return `<script ${attributes}>${json}<\/script>`;
+					return `<script ${ attributes }>${ json }<\/script>`;
 				})
 				.join('\n\n	')}
-		`;
+		`
 	const headers = {
 		'content-type': 'text/html'
-	};
+	}
 	if (maxage) {
-		headers['cache-control'] = `${is_private ? 'private' : 'public'}, max-age=${maxage}`;
+		headers['cache-control'] = `${ is_private ? 'private' : 'public' }, max-age=${ maxage }`;
 	}
 	if (!options2.floc) {
 		headers['permissions-policy'] = 'interest-cohort=()';
@@ -7325,7 +7374,7 @@ async function render_response({
 		status,
 		headers,
 		body: options2.template({ head, body })
-	};
+	}
 }
 
 function try_serialize(data, fail) {
@@ -7356,7 +7405,7 @@ function serialize_error(error2) {
 
 function normalize(loaded) {
 	const has_error_status =
-		loaded.status && loaded.status >= 400 && loaded.status <= 599 && !loaded.redirect;
+		loaded.status && loaded.status >= 400 && loaded.status <= 599 && !loaded.redirect
 	if (loaded.error || has_error_status) {
 		const status = loaded.status;
 		if (!loaded.error && has_error_status) {
@@ -7370,7 +7419,7 @@ function normalize(loaded) {
 			return {
 				status: 500,
 				error: new Error(
-					`"error" property returned from load() must be a string or instance of Error, received type "${typeof error2}"`
+					`"error" property returned from load() must be a string or instance of Error, received type "${ typeof error2 }"`
 				)
 			};
 		}
@@ -7389,19 +7438,19 @@ function normalize(loaded) {
 				error: new Error(
 					'"redirect" property returned from load() must be accompanied by a 3xx status code'
 				)
-			};
+			}
 		}
 		if (typeof loaded.redirect !== 'string') {
 			return {
 				status: 500,
 				error: new Error('"redirect" property returned from load() must be a string')
-			};
+			}
 		}
 	}
 	if (loaded.context) {
 		throw new Error(
 			'You are returning "context" from a load function. "context" was renamed to "stuff", please adjust your code accordingly.'
-		);
+		)
 	}
 	return loaded;
 }
@@ -7466,17 +7515,18 @@ async function load_node({
 				const filename = (
 					resolved.startsWith(prefix) ? resolved.slice(prefix.length) : resolved
 				).slice(1);
-				const filename_html = `${filename}/index.html`;
+				const filename_html = `${ filename }/index.html`;
 				const asset = options2.manifest.assets.find(
 					(d2) => d2.file === filename || d2.file === filename_html
 				);
 				if (asset) {
 					response = options2.read
 						? new Response(options2.read(asset.file), {
-								headers: asset.type ? { 'content-type': asset.type } : {}
-						  })
-						: await fetch(`http://${page2.host}/${asset.file}`, opts);
-				} else if (resolved.startsWith('/') && !resolved.startsWith('//')) {
+							headers: asset.type ? { 'content-type': asset.type } : {}
+						})
+						: await fetch(`http://${ page2.host }/${ asset.file }`, opts);
+				}
+				else if (resolved.startsWith('/') && !resolved.startsWith('//')) {
 					const relative = resolved;
 					const headers = {
 						...opts.headers
@@ -7506,7 +7556,7 @@ async function load_node({
 							fetched: url,
 							initiator: route
 						}
-					);
+					)
 					if (rendered) {
 						if (state.prerender) {
 							state.prerender.dependencies.set(relative, rendered);
@@ -7514,17 +7564,17 @@ async function load_node({
 						response = new Response(rendered.body, {
 							status: rendered.status,
 							headers: rendered.headers
-						});
+						})
 					}
 				} else {
 					if (resolved.startsWith('//')) {
-						throw new Error(`Cannot request protocol-relative URL (${url}) in server-side fetch`);
+						throw new Error(`Cannot request protocol-relative URL (${ url }) in server-side fetch`);
 					}
 					if (typeof request.host !== 'undefined') {
 						const { hostname: fetch_hostname } = new URL(url);
 						const [server_hostname] = request.host.split(':');
 						if (
-							`.${fetch_hostname}`.endsWith(`.${server_hostname}`) &&
+							`.${ fetch_hostname }`.endsWith(`.${ server_hostname }`) &&
 							opts.credentials !== 'omit'
 						) {
 							uses_credentials = true;
@@ -7546,7 +7596,8 @@ async function load_node({
 								for (const [key2, value] of response2.headers) {
 									if (key2 === 'set-cookie') {
 										set_cookie_headers = set_cookie_headers.concat(value);
-									} else if (key2 !== 'etag') {
+									}
+									else if (key2 !== 'etag') {
 										headers[key2] = value;
 									}
 								}
@@ -7554,9 +7605,9 @@ async function load_node({
 									fetched.push({
 										url,
 										body: opts.body,
-										json: `{"status":${response2.status},"statusText":${s(
+										json: `{"status":${ response2.status },"statusText":${ s(
 											response2.statusText
-										)},"headers":${s(headers)},"body":"${escape_json_string_in_html(body)}"}`
+										) },"headers":${ s(headers) },"body":"${ escape_json_string_in_html(body) }"}`
 									});
 								}
 								return body;
@@ -7572,7 +7623,7 @@ async function load_node({
 							}
 							return Reflect.get(response2, key, response2);
 						}
-					});
+					})
 					return proxy;
 				}
 				return (
@@ -7580,10 +7631,10 @@ async function load_node({
 					new Response('Not found', {
 						status: 404
 					})
-				);
+				)
 			},
 			stuff: { ...stuff }
-		};
+		}
 		if (is_error) {
 			load_input.status = status;
 			load_input.error = error2;
@@ -7596,7 +7647,7 @@ async function load_node({
 		return;
 	}
 	if (!loaded) {
-		throw new Error(`${node.entry} - load must return a value except for page fall through`);
+		throw new Error(`${ node.entry } - load must return a value except for page fall through`);
 	}
 	return {
 		node,
@@ -7605,14 +7656,14 @@ async function load_node({
 		fetched,
 		set_cookie_headers,
 		uses_credentials
-	};
+	}
 }
 
 function resolve(base22, path) {
 	const base_match = absolute.exec(base22);
 	const path_match = absolute.exec(path);
 	if (!base_match) {
-		throw new Error(`bad base path: "${base22}"`);
+		throw new Error(`bad base path: "${ base22 }"`);
 	}
 	const baseparts = path_match ? [] : base22.slice(base_match[0].length).split('/');
 	const pathparts = path_match ? path.slice(path_match[0].length).split('/') : path.split('/');
@@ -7621,14 +7672,16 @@ function resolve(base22, path) {
 		const part = pathparts[i];
 		if (part === '.') {
 			continue;
-		} else if (part === '..') {
+		}
+		else if (part === '..') {
 			baseparts.pop();
-		} else {
+		}
+		else {
 			baseparts.push(part);
 		}
 	}
 	const prefix = (path_match && path_match[0]) || (base_match && base_match[0]) || '';
-	return `${prefix}${baseparts.join('/')}`;
+	return `${ prefix }${ baseparts.join('/') }`;
 }
 
 async function respond_with_error({
@@ -7677,7 +7730,7 @@ async function respond_with_error({
 			status,
 			error: error2
 		})
-	];
+	]
 	try {
 		return await render_response({
 			options: options2,
@@ -7691,7 +7744,7 @@ async function respond_with_error({
 			error: error2,
 			branch,
 			page: page2
-		});
+		})
 	} catch (err) {
 		const error3 = coalesce_to_error(err);
 		options2.handle_error(error3, request);
@@ -7706,7 +7759,7 @@ async function respond_with_error({
 function is_prerender_enabled(options2, node, state) {
 	return (
 		options2.prerender && (!!node.module.prerender || (!!state.prerender && state.prerender.all))
-	);
+	)
 }
 
 async function respond$1(opts) {
@@ -7714,7 +7767,8 @@ async function respond$1(opts) {
 	let nodes;
 	try {
 		nodes = await Promise.all(route.a.map((id) => (id ? options2.load_component(id) : void 0)));
-	} catch (err) {
+	}
+	catch (err) {
 		const error3 = coalesce_to_error(err);
 		options2.handle_error(error3, request);
 		return await respond_with_error({
@@ -7766,10 +7820,10 @@ async function respond$1(opts) {
 								}
 							},
 							set_cookie_headers
-						);
+						)
 					}
 					if (loaded.loaded.error) {
-						({ status, error: error2 } = loaded.loaded);
+						;({ status, error: error2 } = loaded.loaded);
 					}
 				} catch (err) {
 					const e = coalesce_to_error(err);
@@ -7823,14 +7877,14 @@ async function respond$1(opts) {
 							error: error2
 						}),
 						set_cookie_headers
-					);
+					)
 				}
 			}
 			if (loaded && loaded.loaded.stuff) {
 				stuff = {
 					...stuff,
 					...loaded.loaded.stuff
-				};
+				}
 			}
 		}
 	}
@@ -7844,7 +7898,7 @@ async function respond$1(opts) {
 				branch: branch.filter(Boolean)
 			}),
 			set_cookie_headers
-		);
+		)
 	} catch (err) {
 		const error3 = coalesce_to_error(err);
 		options2.handle_error(error3, request);
@@ -7864,7 +7918,7 @@ function get_page_config(leaf, options2) {
 		ssr: 'ssr' in leaf ? !!leaf.ssr : options2.ssr,
 		router: 'router' in leaf ? !!leaf.router : options2.router,
 		hydrate: 'hydrate' in leaf ? !!leaf.hydrate : options2.hydrate
-	};
+	}
 }
 
 function with_cookies(response, set_cookie_headers) {
@@ -7879,7 +7933,7 @@ async function render_page(request, route, match, options2, state) {
 		return {
 			status: 404,
 			headers: {},
-			body: `Not found: ${request.path}`
+			body: `Not found: ${ request.path }`
 		};
 	}
 	const params = route.params(match);
@@ -7906,7 +7960,7 @@ async function render_page(request, route, match, options2, state) {
 			status: 500,
 			headers: {},
 			body: `Bad request in load function: failed to fetch ${state.fetched}`
-		};
+		}
 	}
 }
 
@@ -7915,13 +7969,13 @@ function read_only_form_data() {
 	return {
 		append(key, value) {
 			if (map.has(key)) {
-				(map.get(key) || []).push(value);
+				;(map.get(key) || []).push(value);
 			} else {
 				map.set(key, [value]);
 			}
 		},
 		data: new ReadOnlyFormData(map)
-	};
+	}
 }
 
 function parse_body(raw, headers) {
@@ -7963,7 +8017,7 @@ function get_urlencoded(text) {
 }
 
 function get_multipart(text, boundary) {
-	const parts = text.split(`--${boundary}`);
+	const parts = text.split(`--${ boundary }`);
 	if (parts[0] !== '' || parts[parts.length - 1].trim() !== '--') {
 		throw new Error('Malformed form data');
 	}
@@ -8003,7 +8057,7 @@ function get_multipart(text, boundary) {
 			throw new Error('Malformed form data');
 		}
 		append(key, body);
-	});
+	})
 	return data;
 }
 
@@ -8021,7 +8075,7 @@ async function respond(incoming, options2, state = {}) {
 			return {
 				status: 301,
 				headers: {
-					location: options2.paths.base + path + (q ? `?${q}` : '')
+					location: options2.paths.base + path + (q ? `?${ q }` : '')
 				}
 			};
 		}
@@ -8045,7 +8099,7 @@ async function respond(incoming, options2, state = {}) {
 						page_config: { ssr: false, router: true, hydrate: true },
 						status: 200,
 						branch: []
-					});
+					})
 				}
 				const decoded = decodeURI(request2.path);
 				for (const route of options2.manifest.routes) {
@@ -8056,12 +8110,12 @@ async function respond(incoming, options2, state = {}) {
 					const response =
 						route.type === 'endpoint'
 							? await render_endpoint(request2, route, match)
-							: await render_page(request2, route, match, options2, state);
+							: await render_page(request2, route, match, options2, state)
 					if (response) {
 						if (response.status === 200) {
 							const cache_control = get_single_valued_header(response.headers, 'cache-control');
 							if (!cache_control || !/(no-store|immutable)/.test(cache_control)) {
-								const etag = `"${hash(response.body || '')}"`;
+								const etag = `"${ hash(response.body || '') }"`;
 								if (request2.headers['if-none-match'] === etag) {
 									return {
 										status: 304,
@@ -8081,10 +8135,10 @@ async function respond(incoming, options2, state = {}) {
 					state,
 					$session,
 					status: 404,
-					error: new Error(`Not found: ${request2.path}`)
+					error: new Error(`Not found: ${ request2.path }`)
 				});
 			}
-		});
+		})
 	} catch (err) {
 		const e = coalesce_to_error(err);
 		options2.handle_error(e, request);
@@ -8128,7 +8182,7 @@ function run_tasks(now2) {
 			tasks.delete(task);
 			task.f();
 		}
-	});
+	})
 	if (tasks.size !== 0) {
 		raf(run_tasks);
 	}
@@ -8146,7 +8200,7 @@ function loop(callback) {
 		abort() {
 			tasks.delete(task);
 		}
-	};
+	}
 }
 
 function set_current_component(component) {
@@ -8187,7 +8241,7 @@ function validate_component(component, name) {
 		}
 		throw new Error(
 			`<${name}> is not a valid SSR component. You may need to review your build config to ensure that dependencies are compiled, rather than imported as pre-compiled modules`
-		);
+		)
 	}
 	return component;
 }
@@ -8227,18 +8281,18 @@ function create_ssr_component(fn) {
 			};
 		},
 		$$render
-	};
+	}
 }
 
 function add_attribute(name, value, boolean) {
 	if (value == null || (boolean && !value)) {
 		return '';
 	}
-	return ` ${name}${
+	return ` ${ name }${
 		value === true
 			? ''
-			: `=${typeof value === 'string' ? JSON.stringify(escape(value)) : `"${value}"`}`
-	}`;
+			: `=${ typeof value === 'string' ? JSON.stringify(escape(value)) : `"${ value }"` }`
+	}`
 }
 
 function afterUpdate() {}
@@ -8285,7 +8339,7 @@ function init(settings = default_settings) {
 		target: '#svelte',
 		template,
 		trailing_slash: 'never'
-	};
+	}
 }
 
 async function load_component(file) {
@@ -8296,7 +8350,7 @@ async function load_component(file) {
 		css: css22.map((dep) => assets + '/_app/' + dep),
 		js: js.map((dep) => assets + '/_app/' + dep),
 		styles
-	};
+	}
 }
 
 function render(request, { prerender: prerender3 } = {}) {
@@ -8344,7 +8398,7 @@ var import_cookie6,
 	manifest,
 	get_hooks,
 	module_lookup,
-	metadata_lookup;
+	metadata_lookup
 var init_app_f3985139 = __esm({
 	'.svelte-kit/output/server/chunks/app-f3985139.js'() {
 		init_shims();
@@ -8455,14 +8509,14 @@ var init_app_f3985139 = __esm({
 				}
 			}
 
-			*values() {
+			* values() {
 				for (const [, value] of __privateGet(this, _map)) {
 					for (let i = 0; i < value.length; i += 1) {
 						yield value[i];
 					}
 				}
 			}
-		};
+		}
 		_map = new WeakMap();
 		is_client = typeof window !== 'undefined';
 		now = is_client ? () => window.performance.now() : () => Date.now();
@@ -8471,7 +8525,7 @@ var init_app_f3985139 = __esm({
 		Promise.resolve();
 		escaped = {
 			'"': '&quot;',
-			"'": '&#39;',
+			'\'': '&#39;',
 			'&': '&amp;',
 			'<': '&lt;',
 			'>': '&gt;'
@@ -8482,7 +8536,7 @@ var init_app_f3985139 = __esm({
 		css5 = {
 			code: '#svelte-announcer.svelte-1j55zn5{position:absolute;left:0;top:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap;width:1px;height:1px}',
 			map: null
-		};
+		}
 		Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 			let { stores } = $$props;
 			let { page: page2 } = $$props;
@@ -8536,18 +8590,18 @@ ${validate_component(components[0] || missing_component, 'svelte:component').$$r
 											? `${validate_component(
 													components[2] || missing_component,
 													'svelte:component'
-											  ).$$render($$result, Object.assign(props_2 || {}), {}, {})}`
+											).$$render($$result, Object.assign(props_2 || {}), {}, {}) }`
 											: ``
 									}`
 							}
-					  )}`
+					) }`
 					: ``
 			}`
 	}
-)}
+			) }
 
-${``}`;
-		});
+${ `` }`
+		})
 		base2 = '';
 		assets = '';
 		handle = async ({ request, resolve: resolve2 }) => {
@@ -8575,9 +8629,9 @@ ${``}`;
 			handle
 		});
 		template = ({ head, body }) =>
-			"<!DOCTYPE html>\n<html lang='en'>\n  <head>\n    <meta charset='utf-8' />\n    <link href='/favicon.png' rel='icon' />\n    <meta content='width=device-width, initial-scale=1' name='viewport' />\n    <title>Josh's Space</title>\n\n    " +
+			'<!DOCTYPE html>\n<html lang=\'en\'>\n  <head>\n    <meta charset=\'utf-8\' />\n    <link href=\'/favicon.png\' rel=\'icon\' />\n    <meta content=\'width=device-width, initial-scale=1\' name=\'viewport\' />\n    <title>Josh\'s Space</title>\n\n    ' +
 			head +
-			"\n  </head>\n  <body>\n    <div id='svelte'>" +
+			'\n  </head>\n  <body>\n    <div id=\'svelte\'>' +
 			body +
 			'</div>\n  </body>\n</html>\n';
 		options = null;
@@ -8650,13 +8704,13 @@ ${``}`;
 						Promise.resolve().then(() => (init_uid_json_01bf21e4(), uid_json_01bf21e4_exports))
 				}
 			]
-		};
+		}
 		get_hooks = (hooks) => ({
 			getSession: hooks.getSession || (() => ({})),
 			handle: hooks.handle || (({ request, resolve: resolve2 }) => resolve2(request)),
 			handleError: hooks.handleError || (({ error: error2 }) => console.error(error2.stack)),
 			externalFetch: hooks.externalFetch || fetch
-		});
+		})
 		module_lookup = {
 			'src/routes/__layout.svelte': () =>
 				Promise.resolve().then(() => (init_layout_99c89b2c(), layout_99c89b2c_exports)),
@@ -8668,7 +8722,7 @@ ${``}`;
 				Promise.resolve().then(() => (init_about_2076347a(), about_2076347a_exports)),
 			'src/routes/todos/index.svelte': () =>
 				Promise.resolve().then(() => (init_index_be7c3ccc(), index_be7c3ccc_exports))
-		};
+		}
 		metadata_lookup = {
 			'src/routes/__layout.svelte': {
 				entry: 'pages/__layout.svelte-6a6c112a.js',
@@ -8700,9 +8754,9 @@ ${``}`;
 				js: ['pages/todos/index.svelte-e71575d7.js', 'chunks/vendor-27f7137a.js'],
 				styles: []
 			}
-		};
+		}
 	}
-});
+})
 
 // .svelte-kit/netlify/entry.js
 __export(exports, {
@@ -8735,23 +8789,23 @@ async function handler(event) {
 		return {
 			statusCode: 404,
 			body: 'Not found'
-		};
+		}
 	}
 	const partial_response = {
 		statusCode: rendered.status,
 		...split_headers(rendered.headers)
-	};
+	}
 	if (rendered.body instanceof Uint8Array) {
 		return {
 			...partial_response,
 			isBase64Encoded: true,
 			body: Buffer.from(rendered.body).toString('base64')
-		};
+		}
 	}
 	return {
 		...partial_response,
 		body: rendered.body
-	};
+	}
 }
 
 function split_headers(headers) {
@@ -8770,9 +8824,9 @@ function split_headers(headers) {
 
 // Annotate the CommonJS export names for ESM import in node:
 0 &&
-	(module.exports = {
-		handler
-	});
+(module.exports = {
+	handler
+})
 /*!
  * cookie
  * Copyright(c) 2012-2014 Roman Shtylman

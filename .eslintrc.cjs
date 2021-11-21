@@ -12,9 +12,12 @@ module.exports = {
 		sourceType: 'module',
 		ecmaVersion: 2019
 	},
+	rules: {
+		semi: ['error', 'never']
+	},
 	env: {
 		browser: true,
 		es2017: true,
 		node: true
 	}
-};
+}
