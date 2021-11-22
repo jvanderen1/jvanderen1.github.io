@@ -1,27 +1,28 @@
 <div class="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
-	<div class="max-w-xl mx-auto">
-		<div class="text-center">
+	<div class="flex flex-col gap-12 max-w-xl mx-auto">
+		<div class="flex flex-col gap-4 text-center">
 			<h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
 				Welcome 👋
 			</h2>
-			<p class="mt-4 text-lg leading-6 text-gray-500">
-				I am an aspiring Software Engineer looking to build beautiful websites and learn the latest industry trends.
+			<p class="text-lg leading-6 text-gray-500">
+				I am a Software Engineer looking to build beautiful websites and learn the latest industry trends.
 			</p>
 		</div>
-		<div class="mt-12">
-			<form action="#" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-				<div>
-					<label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+		<div>
+			<form action="https://api.staticforms.xyz/submit" method="post" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+				<input type="hidden" name="accessKey" value={import.meta.env.VITE_STATIC_FORMS_API_KEY}>
+				<div class='sm:col-span-2'>
+					<label for="name" class="block text-sm font-medium text-gray-700">Name</label>
 					<div class="mt-1">
-						<input type="text" name="first-name" id="first-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+						<input type="text" name="name" id="name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
 					</div>
 				</div>
-				<div>
-					<label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
-					<div class="mt-1">
-						<input type="text" name="last-name" id="last-name" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-					</div>
-				</div>
+<!--				<div>-->
+<!--					<label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>-->
+<!--					<div class="mt-1">-->
+<!--						<input type="text" name="lastName" id="lastName" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">-->
+<!--					</div>-->
+<!--				</div>-->
 				<div class="sm:col-span-2">
 					<label for="email" class="block text-sm font-medium text-gray-700">Email</label>
 					<div class="mt-1">
