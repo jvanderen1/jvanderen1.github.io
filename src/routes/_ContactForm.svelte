@@ -10,19 +10,13 @@
 		</div>
 		<div>
 			<form action="https://api.staticforms.xyz/submit" method="post" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-				<input type="hidden" name="accessKey" value={import.meta.env.VITE_STATIC_FORMS_API_KEY}>
+				<input type="hidden" name="accessKey" value={JSON.stringify(import.meta.env.VITE_STATIC_FORMS_API_KEY)}>
 				<div class='sm:col-span-2'>
-					<label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+					<label for="name" class="block text-sm text-gray-700 font-medium">Name</label>
 					<div class="mt-1">
 						<input type="text" name="name" id="name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
 					</div>
 				</div>
-<!--				<div>-->
-<!--					<label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>-->
-<!--					<div class="mt-1">-->
-<!--						<input type="text" name="lastName" id="lastName" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">-->
-<!--					</div>-->
-<!--				</div>-->
 				<div class="sm:col-span-2">
 					<label for="email" class="block text-sm font-medium text-gray-700">Email</label>
 					<div class="mt-1">
