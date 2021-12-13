@@ -1,5 +1,10 @@
 import preprocess from 'svelte-preprocess'
 import netlify from '@sveltejs/adapter-netlify'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -13,8 +18,16 @@ const config = {
 
 	kit: {
 		adapter: netlify(),
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		ssr: true,
+		target: '#svelte',
+		vite: () => ({
+			resolve: {
+				alias: {
+					$form: resolve(__dirname, './src/form')
+				}
+			},
+			envPrefix: ['VITE_']
+		})
 	}
 }
 
