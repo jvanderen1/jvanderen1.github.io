@@ -1,19 +1,15 @@
 <script>
-	import { setContext } from 'svelte'
-	import { createForm } from 'svelte-forms-lib'
-	import key from './key'
+	import { createForm } from 'felte'
 
 	export let initialValues = {}
-	export let onSubmit
+	export let onSubmit = (values) => { console.log(values) }
 
-	const methods = createForm({
+	const { form } = createForm({
 		initialValues,
 		onSubmit
 	})
-
-	setContext(key, methods)
 </script>
 
-<form on:submit={methods.handleSubmit} class={`${$$props.class}`}>
+<form use:form={form} class={`${$$props.class}`}>
 	<slot />
 </form>

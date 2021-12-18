@@ -3,12 +3,11 @@
 	import { Form, Label, SubmitButton, TextAreaInput, TextInput } from '$form'
 
 	const onSubmit = (values) => {
-		console.log(values)
+		values.accessKey = `${import.meta.env.VITE_STATIC_FORMS_API_KEY}`
 		axios.post('https://api.staticforms.xyz/submit', values)
 	}
 
 	const initialValues = {
-		accessKey: `${import.meta.env.VITE_STATIC_FORMS_API_KEY}`,
 		email: '',
 		message: '',
 		name: ''
@@ -26,7 +25,7 @@
 		</div>
 		<div>
 			<Form class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8" {initialValues} {onSubmit}>
-				<input type="hidden" name="accessKey" />
+				<TextInput name='honeypot' class='hidden'/>
 				<div class="sm:col-span-2">
 					<Label for="name">Name</Label>
 					<div class="mt-1">

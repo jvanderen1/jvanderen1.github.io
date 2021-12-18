@@ -39,7 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"axios": "^0.24.0",
-		"svelte-forms-lib": "^2.0.0",
+		"felte": "^0.8.7",
 		"yup": "^0.32.11"
 	},
 	"volta": {
