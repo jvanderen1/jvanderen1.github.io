@@ -3,16 +3,22 @@
 	// import { validator } from '@felte/validator-zod'
 	import { createForm } from 'felte'
 
+	import { setFormContext } from '$form/FormContext'
+
 	export let initialValues = {}
 	export let onSubmit = (values) => { console.log(values) }
 	export let validateSchema = {}
 
-	const { form } = createForm({
+	const methods = createForm({
 		// extend: validator,
 		initialValues,
 		onSubmit,
 		validateSchema,
 	})
+
+	const { form } = methods
+
+	setFormContext(methods)
 </script>
 
 <form use:form={form} class={`${$$props.class}`}>

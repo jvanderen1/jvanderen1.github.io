@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@felte/core': ^0.2.7
   '@felte/validator-zod': ^0.3.6
   '@sveltejs/adapter-netlify': ^1.0.0-next.36
   '@sveltejs/kit': ^1.0.0-next.202
@@ -27,6 +28,7 @@ specifiers:
   zod: ^3.11.6
 
 dependencies:
+  '@felte/core': 0.2.7
   '@felte/validator-zod': 0.3.6_zod@3.11.6
   axios: 0.24.0
   felte: 0.8.7_svelte@3.44.3

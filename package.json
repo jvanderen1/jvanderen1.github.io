@@ -38,6 +38,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@felte/core": "^0.2.7",
 		"@felte/validator-zod": "^0.3.6",
 		"axios": "^0.24.0",
 		"felte": "^0.8.7",
