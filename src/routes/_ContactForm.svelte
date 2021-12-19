@@ -34,7 +34,8 @@
 			</p>
 		</div>
 		<div>
-			<Form class='grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8' {initialValues} {onSubmit} {validateSchema}>
+			<Form class='grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8' {initialValues} {onSubmit}
+						{validateSchema}>
 				<TextInput name='honeypot' class='hidden' />
 				<div class='sm:col-span-2'>
 					<Label for='name'>Name</Label>

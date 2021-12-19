@@ -41,6 +41,7 @@
     "@felte/core": "^0.2.7",
     "@felte/validator-zod": "^0.3.6",
     "axios": "^0.24.0",
+    "clsx": "^1.1.1",
     "felte": "^0.8.7",
     "zod": "^3.11.6"
   },
