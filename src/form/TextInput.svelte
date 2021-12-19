@@ -1,6 +1,6 @@
-<script>
-	export let name
-	export let autocomplete = undefined
+<script type='ts'>
+	export let name: string
+	export let autocomplete: string | undefined = undefined
 </script>
 
 <input

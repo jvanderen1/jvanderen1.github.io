@@ -4,7 +4,7 @@
 
 	import { Form, Label, SubmitButton, TextAreaInput, TextInput } from '$form'
 
-	import type { Obj } from '$form'
+	import type { Obj } from '$form/types'
 
 	const onSubmit = (values: Obj) => {
 		values.accessKey = `${import.meta.env.VITE_STATIC_FORMS_API_KEY}`

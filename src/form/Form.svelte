@@ -1,5 +1,4 @@
 <script lang='ts'>
-	// TODO: Add once https://github.com/pablo-abc/felte/issues/89 resolved
 	import { validator } from '@felte/validator-zod'
 	import { createForm } from 'felte'
 	import { object as zObject } from 'zod'
@@ -26,6 +25,6 @@
 	setFormContext(methods)
 </script>
 
-<form use:form={form} class={`${$$props.class}`}>
+<form use:form class={`${$$props.class}`}>
 	<slot />
 </form>
