@@ -1,7 +1,7 @@
 <script lang='ts'>
-	import { getFormContext } from '$form/FormContext'
+	import { getFormContext } from './FormContext'
 
-	const { isValid }: { isValid: boolean } = getFormContext()
+	const { isValid } = getFormContext()
 </script>
 
 <button

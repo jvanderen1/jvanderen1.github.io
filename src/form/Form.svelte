@@ -1,19 +1,24 @@
-<script>
+<script lang='ts'>
 	// TODO: Add once https://github.com/pablo-abc/felte/issues/89 resolved
-	// import { validator } from '@felte/validator-zod'
+	import { validator } from '@felte/validator-zod'
 	import { createForm } from 'felte'
+	import { object as zObject } from 'zod'
 
-	import { setFormContext } from '$form/FormContext'
+	import { setFormContext } from './FormContext'
+
+	import type { Obj } from './types'
 
 	export let initialValues = {}
-	export let onSubmit = (values) => { console.log(values) }
-	export let validateSchema = {}
+	export let onSubmit = (values: Obj) => {
+		console.log(values)
+	}
+	export let validateSchema = zObject({})
 
 	const methods = createForm({
-		// extend: validator,
+		extend: validator,
 		initialValues,
 		onSubmit,
-		validateSchema,
+		validateSchema
 	})
 
 	const { form } = methods
