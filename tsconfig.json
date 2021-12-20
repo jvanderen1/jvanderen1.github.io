@@ -23,6 +23,12 @@
       ],
       "$form/*": [
         "src/form/*"
+      ],
+      "$lib": [
+        "src/lib"
+      ],
+      "$lib/*": [
+        "src/lib/*"
       ]
     },
     "strict": true

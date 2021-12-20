@@ -23,7 +23,8 @@ const config = {
 		vite: () => ({
 			resolve: {
 				alias: {
-					$form: resolve(__dirname, './src/form')
+					$form: resolve(__dirname, './src/form'),
+					$lib: resolve(__dirname, './src/lib')
 				}
 			},
 			envPrefix: ['VITE_']
